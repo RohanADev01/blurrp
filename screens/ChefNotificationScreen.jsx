@@ -33,7 +33,7 @@ const ChefNotificationScreen = () => {
         <Text style={styles.action}>{item.action}</Text>
         <Text style={styles.time}>{item.time}</Text>
       </View>
-      {item.itemImage !== '' && <Image source={item.itemImage} style={styles.itemImage} />}
+      {item.image !== '' && <Image source={item.image} style={styles.image} />}
     </View>
   );
 
@@ -93,13 +93,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 8,
     color: '#333',
+    fontFamily: 'Inter',
   },
   text: {
     paddingHorizontal: 35,
-  },
-  headerText: {
-    fontSize: 25,
-    fontFamily: 'Inter',
   },
   tabContainer: {
     flexDirection: 'row',
@@ -157,7 +154,7 @@ const styles = StyleSheet.create({
     color: themeColors.grayText,
     fontSize: 12,
   },
-  itemImage: {
+  image: {
     width: 80,
     height: 80,
     borderRadius: 10,

@@ -70,15 +70,17 @@ const ChefEditItemScreen = ({ route, navigation }) => {
     <TouchableOpacity
       key={category}
       style={[
-        styles.checkboxContainer,
+        styles.typeOption,
+        { backgroundColor: newItemDetails.category === category ? themeColors.buttonBg : themeColors.greyedButton }
       ]}
       onPress={() => handleCategorySelection(category)}
     >
-      <Icon.CheckCircle
-        size={16}
-        color={selectedCategory === category ? themeColors.button : themeColors.inactiveButton}
-      />
-      <Text style={styles.checkboxLabel}>{category}</Text>
+      <Text style={[
+        styles.typeOptionText,
+        { color: selectedCategory === category ? themeColors.button : themeColors.inactiveButton }
+      ]}>
+        {category}
+      </Text>
     </TouchableOpacity>
   );
 
@@ -178,10 +180,10 @@ const ChefEditItemScreen = ({ route, navigation }) => {
         />
       </View>
 
-      <Text style={styles.sectionTitle}>UPLOAD PHOTO/VIDEO</Text>
-      <View style={styles.imageUploadContainer}>
-        <Image source={require('../assets/images/Sushi.png')} style={styles.foodImage} />
-      </View>
+      <Text style={styles.sectionTitle}>UPLOAD PHOTO</Text>
+      <TouchableOpacity style={styles.imageUploadContainer}>
+        {itemDetails.image ? <Image source={require('../assets/images/UploadImage.png')} style={styles.foodImage} /> : itemDetails.image}
+      </TouchableOpacity>
 
       <View style={styles.priceContainer}>
         <Text style={styles.label}>PRICE</Text>
@@ -198,13 +200,16 @@ const ChefEditItemScreen = ({ route, navigation }) => {
       </View>
 
       <Text style={styles.sectionTitle}>CATEGORY</Text>
-      <View style={styles.categoryOptions}>
+      <View style={styles.typeOptions}>
         {FOOD_ITEM_CATEGORIES.map(renderCategoryOption)}
       </View>
 
       <Text style={styles.sectionTitle}>DELIVERY OPTIONS</Text>
-      <View style={styles.deliveryOptions}>
-        <TouchableOpacity style={styles.checkboxContainer} onPress={() => {
+      <View style={styles.typeOptions}>
+        <TouchableOpacity style={[
+          styles.typeOption,
+          { backgroundColor: pickup ? themeColors.buttonBg : themeColors.greyedButton }
+        ]} onPress={() => {
           setPickup(!pickup);
           const updatedDeliveryMethods = !pickup
             ? [...newItemDetails.deliveryMethods, 'Pickup']
@@ -212,10 +217,17 @@ const ChefEditItemScreen = ({ route, navigation }) => {
 
           setNewItemDetails({ ...newItemDetails, deliveryMethods: updatedDeliveryMethods });
         }}>
-          <Icon.CheckCircle size={16} color={pickup ? themeColors.button : themeColors.inactiveButton} />
-          <Text style={styles.checkboxLabel}>Pickup</Text>
+          <Text style={[
+            styles.typeOptionText,
+            { color: pickup ? themeColors.button : themeColors.inactiveButton }
+          ]}>
+            Pickup
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.checkboxContainer}
+        <TouchableOpacity style={[
+          styles.typeOption,
+          { backgroundColor: delivery ? themeColors.buttonBg : themeColors.greyedButton }
+        ]}
           onPress={() => {
             setDelivery(!delivery);
             const updatedDeliveryMethods = !delivery
@@ -225,8 +237,12 @@ const ChefEditItemScreen = ({ route, navigation }) => {
             setNewItemDetails({ ...newItemDetails, deliveryMethods: updatedDeliveryMethods });
           }}
         >
-          <Icon.CheckCircle size={16} color={delivery ? themeColors.button : themeColors.inactiveButton} />
-          <Text style={styles.checkboxLabel}>Delivery</Text>
+          <Text style={[
+            styles.typeOptionText,
+            { color: delivery ? themeColors.button : themeColors.inactiveButton }
+          ]}>
+            Delivery
+          </Text>
         </TouchableOpacity>
       </View>
 
@@ -340,30 +356,6 @@ const styles = StyleSheet.create({
   typeOptionText: {
     fontSize: 14,
     fontWeight: '600',
-  },
-  categoryOptions: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    paddingHorizontal: 20,
-    marginBottom: 16,
-    gap: 20
-  },
-  deliveryOptions: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    paddingHorizontal: 20,
-    marginBottom: 16,
-  },
-  checkboxContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 20,
-    marginBottom: 20,
-  },
-  checkboxLabel: {
-    marginLeft: 8,
-    fontSize: 14,
-    color: themeColors.grayDisplayText,
   },
   sectionTitle: {
     fontWeight: 'bold',

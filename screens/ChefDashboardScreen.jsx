@@ -25,6 +25,7 @@ import {
 } from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 import { LineChart } from 'react-native-chart-kit';
+import { getCurrentDisplayDate, getPast30DaysEveryXNumbers, getReorderedDaysOfWeek } from '../helpers';
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
@@ -49,12 +50,15 @@ const defaultChartConfig = {
     borderRadius: 16,
   },
   propsForDots: {
-    r: '6',
+    r: (value) => (value === 0 ? 0 : 4),  // Set radius to 0 for dots where value is 0, otherwise 4,
     strokeWidth: '2',
     stroke: '#ffa726',
   },
   propsForBackgroundLines: {
     display: 'none',
+  },
+  propsForLabels: {
+    fontSize: 12,  // This might not work directly, see alternatives below
   },
 };
 
@@ -140,8 +144,9 @@ const ChefDashboardScreen = () => {
   const navigation = useNavigation();
   const { width } = Dimensions.get('window');
 
-  const [selectedValue, setSelectedValue] = useState('Daily');
-  const [selectedIndex, setSelectedIndex] = useState(new IndexPath(0));
+  const [selectedIndex, setSelectedIndex] = useState(new IndexPath(2));
+
+  const [showChart, setShowChart] = useState(false);
 
   const graphSelectOptions = ['Daily', 'Weekly', 'Monthly'];
 
@@ -156,38 +161,18 @@ const ChefDashboardScreen = () => {
 
   // Process the dataset to determine Y-axis values
   // const graphData = [0, 0, 1, 2, 0];
-  // const graphData = [0, 0, 0, 0, 0];
-  const graphData = [0, 0, 1, 0, 3, 0, 0];
+  const graphData = [0, 0, 0, 0, 0, 0, 0];
+  // const graphData = [1, 2, 0, 1, 0, 0, 3, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 1, 0, 3];
 
-  function getDaysInMonth (year, month) {
-    // Note: month is 0-based (0 for January, 1 for February, etc.)
-    return new Date(year, month + 1, 0).getDate();
-  }
+  // function getDaysInMonth (year, month) {
+  //   // Note: month is 0-based (0 for January, 1 for February, etc.)
+  //   return new Date(year, month + 1, 0).getDate();
+  // }
 
-  const d = new Date();
-  let month = d.getMonth();
-  let year = d.getFullYear();
-
-  const allGraphLabels = {
+  let allGraphLabels = {
     'Daily': ['12AM', '6AM', '12PM', '6PM', '12PM'],
-    'Weekly': [
-      'Mon',
-      'Tue',
-      'Wed',
-      'Thu',
-      'Fri',
-      'Sat',
-      'Sun',
-    ],
-    'Monthly': [
-      `1/${month}`,
-      `6/${month}`,
-      `11/${month}`,
-      `16/${month}`,
-      `21/${month}`,
-      `26/${month}`,
-      `${getDaysInMonth(year, month)}/${month}`,
-    ],
+    'Weekly': getReorderedDaysOfWeek(),
+    'Monthly': getPast30DaysEveryXNumbers(3), // Get values for graph based on dates from this, i.e. not necessarily past 30 days.
   }
 
   const graphLabels = allGraphLabels[graphSelectOptions[selectedIndex.row]];
@@ -283,7 +268,7 @@ const ChefDashboardScreen = () => {
               >
                 Total Revenue
               </StyledText>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => setShowChart(!showChart)}>
                 <StyledText
                   className='text-sm font-bold'
                   style={[
@@ -291,7 +276,7 @@ const ChefDashboardScreen = () => {
                     { color: themeColors.button, fontSize: 12 },
                   ]}
                 >
-                  See Details
+                  {showChart ? "Hide Details" : "See Details"}
                 </StyledText>
               </TouchableOpacity>
             </View>
@@ -302,19 +287,9 @@ const ChefDashboardScreen = () => {
               ${totalRevenue}
             </StyledText>
             {/* Daily/Weekly/Monthly Picker and next/prev week options */}
-            <View className='flex-row justify-center items-center mt-4'>
-              {/* <TouchableOpacity className='flex-row justify-between items-center'>
-                <StyledText
-                  className='text-lg font-bold'
-                  style={[
-                    styles.textInter,
-                    { fontSize: 12, color: themeColors.button },
-                  ]}
-                >
-                  Prev
-                </StyledText>
-                <Icon.ChevronLeft strokeWidth={3} stroke={themeColors.button} />
-              </TouchableOpacity> */}
+            {showChart && (
+              <View>
+                <View className='flex-row justify-center items-center mt-4'>
               <ApplicationProvider {...eva} theme={eva.light}>
                 <Layout
                   className='flex-1 justify-center items-center p-4'
@@ -333,22 +308,7 @@ const ChefDashboardScreen = () => {
                     <SelectItem title='Monthly' />
                   </Select>
                 </Layout>
-              </ApplicationProvider>
-              {/* <TouchableOpacity className='flex-row justify-between items-center'>
-                <Icon.ChevronRight
-                  strokeWidth={3}
-                  stroke={themeColors.button}
-                />
-                <StyledText
-                  className='text-lg font-bold'
-                  style={[
-                    styles.textInter,
-                    { fontSize: 12, color: themeColors.button },
-                  ]}
-                >
-                  Next
-                </StyledText>
-              </TouchableOpacity> */}
+                  </ApplicationProvider>
             </View>
             {/* Revenue Graph */}
             <View className='mt-4' style={styles.chartContainer}>
@@ -356,14 +316,16 @@ const ChefDashboardScreen = () => {
                 className='text-xs font-regular mb-4'
                 style={[styles.textInter]}
               >
-                9th Oct 2024 - 16th Oct 2024
+                    {getCurrentDisplayDate(selectedIndex.row)}
               </Text>
               <CustomLineChart
                 data={graphData}
                 labels={graphLabels}
                 width={width * 0.8}
-              />
-            </View>
+                  />
+                </View>
+              </View>
+            )}
           </View>
 
           {/* Reviews */}

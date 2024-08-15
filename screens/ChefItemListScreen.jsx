@@ -39,7 +39,7 @@ const ChefItemListScreen = () => {
 
   const renderFoodItem = ({ item }) => (
     <TouchableOpacity onPress={() => handleFoodItemPress(item)} style={styles.foodItem}>
-      <Image source={item.itemImage} style={styles.itemImage} />
+      <Image source={item.image} style={styles.image} />
       <View style={styles.foodTextContainer}>
         <View style={styles.foodTitleRow}>
           <Text style={styles.title}>{item.name}</Text>
@@ -121,7 +121,7 @@ const ChefItemListScreen = () => {
         keyExtractor={(item) => item.id}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
       />
-      <TouchableOpacity onPress={() => navigation.navigate('')} className='mb-5 mx-20 rounded-full' style={{ backgroundColor: themeColors.button }}>
+      <TouchableOpacity onPress={() => navigation.navigate('ChefAddNewItem')} className='mb-5 mx-20 rounded-full' style={{ backgroundColor: themeColors.button }}>
         <Text style={[styles.addButtonText]}>Add New Item</Text>
       </TouchableOpacity>
     </SafeAreaView>
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderRadius: 10,
   },
-  itemImage: {
+  image: {
     width: 70,
     height: 70,
     borderRadius: 10,

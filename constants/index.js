@@ -12,7 +12,7 @@ export const EXAMPLE_NOTIFICATIONS = [
     title: 'New Notification',
     action: '...',
     time: '20 min ago',
-    itemImage: '',
+    image: '',
   },
   {
     id: '5',
@@ -20,7 +20,7 @@ export const EXAMPLE_NOTIFICATIONS = [
     title: 'Pabel Vuiya',
     action: 'Placed a new order',
     time: '20 min ago',
-    itemImage: require('../assets/images/Sushi.png'),
+    image: require('../assets/images/Sushi.png'),
   },
   {
     id: '4',
@@ -28,7 +28,7 @@ export const EXAMPLE_NOTIFICATIONS = [
     title: 'Royal Bengol',
     action: 'agreed to cancel',
     time: '20 min ago',
-    itemImage: require('../assets/images/Sushi.png'),
+    image: require('../assets/images/Sushi.png'),
   },
   {
     id: '3',
@@ -36,7 +36,7 @@ export const EXAMPLE_NOTIFICATIONS = [
     title: 'Salim Smith',
     action: 'left a 5 star review',
     time: '20 min ago',
-    itemImage: require('../assets/images/Sushi.png'),
+    image: require('../assets/images/Sushi.png'),
   },
   {
     id: '2',
@@ -44,7 +44,7 @@ export const EXAMPLE_NOTIFICATIONS = [
     title: 'New Notification',
     action: '...',
     time: '20 min ago',
-    itemImage: '',
+    image: '',
   },
   {
     id: '1',
@@ -52,7 +52,7 @@ export const EXAMPLE_NOTIFICATIONS = [
     title: 'Welcome to Blurrp!!!',
     action: 'We\'re so excited to have you here!',
     time: '10 mins ago',
-    itemImage: '',
+    image: '',
   },
 ];
 
@@ -156,7 +156,7 @@ export const EXAMPLE_FOOD_ITEMS = [
     reviews: 1,
     distance: '0',
     deliveryMethods: ['Delivery'],
-    itemImage: require('../assets/images/Sushi.png'),
+    image: require('../assets/images/Sushi.png'),
     description:
       'Chicken Thai Biriyani is a classic Thai dish that combines chicken, rice, vegetables, and a variety of spices. The dish is often served with rice vinegar sauce, sriracha, and a sweet chili sauce.',
     ingredients: [
@@ -181,7 +181,7 @@ export const EXAMPLE_FOOD_ITEMS = [
     reviews: 10,
     distance: '0',
     deliveryMethods: ['Pickup'],
-    itemImage: require('../assets/images/Sushi.png'),
+    image: require('../assets/images/Sushi.png'),
     description:
       'Chicken Bhuna is a classic Indian dish that combines chicken, rice, and a variety of spices in one dish.',
     ingredients: [
@@ -202,7 +202,7 @@ export const EXAMPLE_FOOD_ITEMS = [
     reviews: 20,
     distance: '0',
     deliveryMethods: ['Delivery', 'Pickup'],
-    itemImage: require('../assets/images/Sushi.png'),
+    image: require('../assets/images/Sushi.png'),
     description:
       'Mazalichiken Halim is a new dish that is an extension of our previous dishes and is made with a new secret sauce',
     ingredients: [
@@ -223,7 +223,7 @@ export const EXAMPLE_FOOD_ITEMS = [
     reviews: 10,
     distance: '0',
     deliveryMethods: ['Pickup'],
-    itemImage: require('../assets/images/Sushi.png'),
+    image: require('../assets/images/Sushi.png'),
     description:
       'Chicken Bhuna is a classic Indian dish that combines chicken, rice, and a variety of spices in one dish.',
     ingredients: [
@@ -235,3 +235,18 @@ export const EXAMPLE_FOOD_ITEMS = [
     ],
   },
 ];
+
+export const EMPTY_FOOD_ITEM = {
+  id: '',
+  name: '',
+  category: 'All Day',
+  type: 'Food',
+  price: 0,
+  rating: 0,
+  reviews: 0,
+  distance: '0',
+  deliveryMethods: ['Pickup'],
+  image: '',
+  description: '',
+  ingredients: [],
+}
