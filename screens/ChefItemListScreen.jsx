@@ -7,6 +7,8 @@ import { styled } from 'nativewind';
 import { useFonts } from 'expo-font';
 import { FOOD_ITEM_CATEGORIES } from '../constants';
 import { EXAMPLE_FOOD_ITEMS } from '../constants';
+import { Menu, IconButton } from 'react-native-paper';
+
 
 const CenteredView = styled(View);
 const StyledButton = styled(TouchableOpacity);
@@ -14,6 +16,8 @@ const StyledButton = styled(TouchableOpacity);
 const ChefItemListScreen = () => {
   const [activeTab, setActiveTab] = useState(FOOD_ITEM_CATEGORIES[0]);
   const navigation = useNavigation();
+  const [menuVisible, setMenuVisible] = useState(false);
+  const [selectedFoodItem, setSelectedFoodItem] = useState(null);
 
   const foodItems = EXAMPLE_FOOD_ITEMS;
 
@@ -54,7 +58,42 @@ const ChefItemListScreen = () => {
         </View>
       </View>
       <View style={styles.endContainer}>
-        <Icon.MoreHorizontal stroke="#333" />
+        <Menu
+          visible={menuVisible && selectedFoodItem === item.id}
+          onDismiss={() => setMenuVisible(false)}
+          anchor={
+            <IconButton
+              icon="dots-horizontal"
+              color="#333"
+              onPress={() => {
+                setSelectedFoodItem(item.id);
+                setMenuVisible(true);
+              }}
+            />
+          }
+          contentStyle={styles.menuContent}
+        >
+          <Menu.Item
+            onPress={() => {
+              setMenuVisible(false);
+              navigation.navigate('ChefEditItem', { itemDetails: item });
+            }}
+            title="Edit"
+            leadingIcon="pencil"
+            style={styles.menuItem}
+            titleStyle={styles.menuItemText}
+          />
+          <Menu.Item
+            onPress={() => {
+              setMenuVisible(false);
+              // TODO: Handle delete action
+            }}
+            title="Delete"
+            leadingIcon="delete"
+            style={styles.menuItem}
+            titleStyle={styles.menuItemText}
+          />
+        </Menu>
         <Text style={styles.price}>${item.price}</Text>
         <View style={styles.deliveryMethodContainer}>
           {item.deliveryMethods.map((method, idx) => {
@@ -142,14 +181,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginLeft: 8,
-    color: '#333',
+    color: themeColors.grayDisplayText,
   },
   tabContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#E4E4E4',
+    borderBottomColor: themeColors.inactiveButton,
     paddingHorizontal: 35,
   },
   tab: {
@@ -197,7 +236,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: '600',
-    color: '#333',
+    color: themeColors.grayDisplayText,
     fontSize: 14,
   },
   endContainer: {
@@ -209,7 +248,7 @@ const styles = StyleSheet.create({
   price: {
     fontWeight: 'bold',
     marginTop: 8,
-    color: '#333',
+    color: themeColors.grayDisplayText,
     fontSize: 16,
   },
   tagContainer: {
@@ -232,7 +271,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   rating: {
-    color: '#333',
+    color: themeColors.grayDisplayText,
     fontSize: 14,
     marginLeft: 4,
   },
@@ -254,7 +293,7 @@ const styles = StyleSheet.create({
   },
   separator: {
     height: 1,
-    backgroundColor: '#E4E4E4',
+    backgroundColor: themeColors.inactiveButton,
     marginVertical: 8,
   },
   foodListContainer: {
@@ -267,6 +306,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: 'white',
+  },
+  menuContent: {
+    backgroundColor: '#FFF',
+    borderWidth: 1,
+    borderColor: themeColors.inactiveButton,
+    borderRadius: 8,
+  },
+  menuItem: {
+    height: 48,
+    justifyContent: 'center',
+  },
+  menuItemText: {
+    color: themeColors.grayDisplayText,
+    fontSize: 16,
   },
 });
 

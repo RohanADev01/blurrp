@@ -1,10 +1,13 @@
 import React from 'react';
 import Navigation from '../../navigation';
+import { PaperProvider } from 'react-native-paper';
 
 export default function TabLayout() {
   return (
     <>
-      <Navigation />
+      <PaperProvider>
+        <Navigation />
+      </PaperProvider>
     </>
   );
 }
