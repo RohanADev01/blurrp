@@ -1,44 +1,92 @@
-import { View, Text, Switch, SafeAreaView, TextInput, ScrollView } from 'react-native'
-import React from 'react'
-import { StatusBar } from 'expo-status-bar'
-import * as Icon from "react-native-feather";
+import {
+  View,
+  ImageBackground,
+  Text,
+  Switch,
+  SafeAreaView,
+  TextInput,
+  ScrollView,
+  StyleSheet,
+  Image,
+  ActivityIndicator,
+  Button,
+  TouchableOpacity,
+} from 'react-native';
+import React, { useEffect } from 'react';
+import { StatusBar } from 'expo-status-bar';
+import * as Icon from 'react-native-feather';
 import { themeColors } from '../theme/index';
 import Categories from '../components/Categories';
 import FeaturedRow from '../components/FeaturedRow';
 import { featured } from '../constants/index';
+import { styled } from 'nativewind';
+import { useFonts } from 'expo-font';
+import { useNavigation } from '@react-navigation/native';
+
+const CenteredView = styled(View);
+const StyledButton = styled(TouchableOpacity);
 
 export default function HomeScreen () {
-  return (
-    <SafeAreaView className='bg-white'>
-      <StatusBar barStyle="dark-content" />
-      {/* Search Bar */}
-      <View className='flex-row items-center space-x-2 px-4 pb-2'>
-        <View className='flex-row flex-1 items-center p-3 rounded-full border border-gray-300'>
-          <Icon.Search height='25' width='25' stroke='gray' />
-          <TextInput placeholder='Restaurants' className='ml-2 flex-1' />
-          <View className='flex-row items-center space-x-1 border-0 border-l-2 pl-2 border-l-gray-300'>
-            <Icon.MapPin height='20' width='20' stroke='gray' />
-            <Text className='text-gray-600'>New York, NYC</Text>
-          </View>
-        </View>
-        <View style={{ backgroundColor: themeColors.bgColor(1) }} className='p-3 rounded-full'>
-          <Icon.Sliders height='20' width='20' strokeWidth={2.5} stroke='white' />
-        </View>
-      </View>
+  const navigation = useNavigation();
+  const [fontsLoaded] = useFonts({
+    'LondrinaSolid-Regular': require('../assets/fonts/LondrinaSolid-Regular.ttf'),
+    Inter: require('../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
+  });
 
-      {/* Main */}
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 20 }}>
-        {/* Categories */}
-        <Categories />
-        {/* Featured */}
-        <View className='mt-5'>
-          {
-            [featured, featured, featured].map((item, idx) => {
-              return (<FeaturedRow key={idx} title={item.title} restaurants={item.restaurants} description={item.description} />)
-            })
-          }
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  )
+  if (!fontsLoaded) {
+    return <ActivityIndicator />;
+  }
+
+  return (
+    <View style={{ flex: 1, backgroundColor: 'black', }}>
+      <ImageBackground
+        source={require('../assets/images/FoodItemsScreenBg.png')}
+        style={styles.backgroundImg}
+      />
+      <CenteredView className='flex-1 justify-center items-center pt-10'>
+        <Image
+          source={require('../assets/images/MascotLogoCropped1.png')}
+          style={{ width: '65%', height: undefined, aspectRatio: 1 }}
+          resizeMode='contain'
+        />
+        <Text
+          className='text-white mt-4 text-center'
+          style={{ fontFamily: 'LondrinaSolid-Regular', fontSize: 41, paddingHorizontal: 40 }}
+        >
+          doordash
+        </Text>
+        <Text
+          className='text-white font-bold mt-4 tracking-widest text-center'
+          style={{ fontFamily: 'Inter', fontSize: 13, paddingHorizontal: 40 }}
+        >
+          Discover Your Favourite Food
+        </Text>
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Onboarding')}
+          style={{ backgroundColor: 'white' }}
+          className='z-10 rounded-lg p-4 shadow mt-8'
+        >
+          <Icon.ArrowRight strokeWidth={4} stroke='black' />
+        </TouchableOpacity>
+        {/* <StyledButton
+          onPress={() => navigation.navigate('Onboarding')}
+          className='bg-[#FA330C] mt-12 px-5 py-3 rounded-xl'
+          activeOpacity={0.8}
+        >
+          <Text
+            className='text-white text-center text-lg font-semibold'
+            style={{ fontFamily: 'Roboto', fontSize: 14 }}
+          >
+          </Text>
+        </StyledButton> */}
+      </CenteredView>
+    </View>
+  );
 }
+
+const styles = StyleSheet.create({
+  backgroundImg: {
+    ...StyleSheet.absoluteFillObject, backgroundColor: 'black', opacity: 0.8, zIndex: -5
+  },
+})
