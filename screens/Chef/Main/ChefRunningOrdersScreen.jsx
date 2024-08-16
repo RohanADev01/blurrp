@@ -167,8 +167,8 @@ const styles = StyleSheet.create({
     color: themeColors.grayDisplayText,
   },
   orderImage: {
-    width: 60,
-    height: 60,
+    width: 80,
+    height: 80,
     borderRadius: 10,
   },
   buttonContainer: {
