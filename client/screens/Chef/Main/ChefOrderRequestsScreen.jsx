@@ -46,13 +46,13 @@ const ChefOrderRequestsScreen = () => {
             <Text style={styles.actionButtonText}>Accept</Text>
           </StyledButton>
           <StyledButton
-            style={[styles.actionButton, styles.declineButton]}
+            style={[styles.actionButton, styles.cancelButton]}
             onPress={() => {
-              // TODO: Handle decline order action
-              console.log('Order Declined');
+              // TODO: Handle cancel order action
+              console.log('Order Cancelled');
             }}
           >
-            <Text style={styles.actionButtonText}>Decline</Text>
+            <Text style={styles.actionButtonText}>Cancel</Text>
           </StyledButton>
         </View>
       </View>
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   acceptButton: {
     backgroundColor: 'green',
   },
-  declineButton: {
+  cancelButton: {
     backgroundColor: themeColors.button,
   },
 });
