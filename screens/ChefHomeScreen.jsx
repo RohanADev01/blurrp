@@ -7,6 +7,7 @@ import { themeColors } from '@/theme';
 import ChefDashboardScreen from './ChefDashboardScreen';
 import ChefNotificationScreen from './ChefNotificationScreen';
 import ChefFoodListStackScreen from './ChefFoodListStackScreen';
+import ChefAccountStackScreen from './ChefAccountStackScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -50,6 +51,12 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
               <Text className='font-semibold ml-2' style={{ color: themeColors.button }}>Notifications</Text>
             </View>
           ) : (<Icon.Bell stroke={themeColors.button} strokeWidth={2} />),
+          Account: () => isFocused ? (
+            <View className='flex-row justify-center items-center p-2 rounded-full' style={{ backgroundColor: themeColors.buttonBg }}>
+              <Icon.User stroke={themeColors.button} strokeWidth={2} />
+              <Text className='font-semibold ml-2' style={{ color: themeColors.button }}>Profile</Text>
+            </View>
+          ) : (<Icon.User stroke={themeColors.button} strokeWidth={2} />),
         }[route.name];
 
         return (
@@ -79,6 +86,7 @@ const ChefHomeScreen = () => {
       <Tab.Screen name="Dashboard" component={ChefDashboardScreen} />
       <Tab.Screen name="FoodList" component={ChefFoodListStackScreen} />
       <Tab.Screen name="Notifications" component={ChefNotificationScreen} />
+      <Tab.Screen name="Account" component={ChefAccountStackScreen} />
     </Tab.Navigator>
   );
 };

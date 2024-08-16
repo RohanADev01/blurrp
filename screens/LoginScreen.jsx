@@ -43,7 +43,7 @@ const LoginScreen = () => {
           className='text-white mt-2 text-center'
           style={{ fontFamily: 'LondrinaSolid-Regular', fontSize: 28 }}
         >
-          doordash
+          Blurrp
         </Text>
         <Text
           className='text-white font-bold mt-6 tracking-widest text-center'

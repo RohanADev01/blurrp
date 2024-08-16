@@ -34,7 +34,7 @@ export const EXAMPLE_NOTIFICATIONS = [
     id: '3',
     type: 'userNotif',
     title: 'Salim Smith',
-    action: 'left a 5 star review',
+    action: 'left a 5 star review for Chicken Tikka Biryani',
     time: '20 min ago',
     image: require('../assets/images/Sushi.png'),
   },
@@ -250,3 +250,27 @@ export const EMPTY_FOOD_ITEM = {
   description: '',
   ingredients: [],
 }
+
+export const EXAMPLE_ORDERS = [
+  {
+    id: '1',
+    personName: 'John Doe',
+    itemName: 'Chicken Thai Biriyani',
+    orderId: '#12345',
+    orderDate: '2024-08-12',
+    orderTime: '12:00:00pm',
+    itemImage: require('../assets/images/Sushi.png'),
+    tag: 'Lunch',
+  },
+  {
+    id: '2',
+    personName: 'Jane Smith',
+    itemName: 'Chicken Bhuna',
+    orderId: '#12346',
+    orderDate: '2024-08-10',
+    orderTime: '1:33:05pm',
+    itemImage: require('../assets/images/Sushi.png'),
+    tag: 'Dinner',
+  },
+  // Add more orders as needed
+];

@@ -27,20 +27,20 @@ const ChefNotificationScreen = () => {
 
   const renderNotificationItem = ({ item }) => (
     <View style={styles.notificationItem}>
-      <Image source={item.type in NOTIF_TYPES ? NOTIF_TYPES[item.type] : item.userImage} style={styles.userImage} />
+      <Image source={item.type in NOTIF_TYPES ? NOTIF_TYPES[item.type] : item.image} style={styles.notifImage} />
       <View style={styles.notificationTextContainer}>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.action}>{item.action}</Text>
         <Text style={styles.time}>{item.time}</Text>
       </View>
-      {item.image !== '' && <Image source={item.image} style={styles.image} />}
+      {item.image !== '' && <Image source={item.image} style={styles.notifImage} />}
     </View>
   );
 
   return (
-    <SafeAreaView className='flex-1 p-16'>
+    <SafeAreaView className='flex-1 p-16 bg-white'>
       <ImageBackground
-        source={require('../assets/images/FoodItemsScreenBgCorner.png')}
+        source={require('../assets/images/FoodItemsScreenBg.png')}
         style={styles.backgroundImg}
       />
       <View style={styles.headerContainer}>
@@ -80,7 +80,7 @@ const ChefNotificationScreen = () => {
 
 const styles = StyleSheet.create({
   backgroundImg: {
-    ...StyleSheet.absoluteFillObject, backgroundColor: 'white', opacity: 1, zIndex: -5
+    ...StyleSheet.absoluteFillObject, backgroundColor: 'white', opacity: 0.5, zIndex: -5
   },
   headerContainer: {
     flexDirection: 'row',
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#E4E4E4',
+    borderBottomColor: themeColors.inactiveButton,
     paddingHorizontal: 35,
   },
   tab: {
@@ -126,10 +126,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 12,
-    backgroundColor: '#FFF',
     borderRadius: 10,
   },
-  userImage: {
+  notifImage: {
     width: 50,
     height: 50,
     borderRadius: 20,
@@ -161,12 +160,12 @@ const styles = StyleSheet.create({
   },
   separator: {
     height: 1,
-    backgroundColor: '#E4E4E4',
+    backgroundColor: themeColors.inactiveButton,
     marginVertical: 8,
   },
   notifListContainer: {
     marginHorizontal: 20,
-    paddingHorizontal: 0
+    paddingHorizontal: 0,
   }
 });
 

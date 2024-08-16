@@ -4,8 +4,8 @@ export default [
     type: 'video',
     videoId: 1,
     url: require('./assets/videos/TourVid1.mp4'),
-    // title: 'Welcome to doordashPPPPPP',
-    title: 'Welcome to doordash',
+    // title: 'Welcome to Blurrppppp',
+    title: 'Welcome to Blurrpppp',
     description: 'The One-Stop Shop Connecting All Chefs And Foodies'
   },
   {
@@ -19,7 +19,7 @@ export default [
   //   id: 1,
   //   type: 'image',
   //   url: require('./assets/images/TourImg1.png'),
-  //   title: 'Welcome to doordashPP',
+  //   title: 'Welcome to BlurrpPP',
   //   description: 'The One-Stop Shop Connecting All Chefs And Foodies'
   // },
   // {

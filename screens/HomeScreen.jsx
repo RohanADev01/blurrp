@@ -53,7 +53,7 @@ export default function HomeScreen () {
           className='text-white mt-4 text-center'
           style={{ fontFamily: 'LondrinaSolid-Regular', fontSize: 41, paddingHorizontal: 40 }}
         >
-          doordash
+          Blurrp
         </Text>
         <Text
           className='text-white font-bold mt-4 tracking-widest text-center'

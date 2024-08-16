@@ -1,0 +1,31 @@
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import ChefAccountScreen from './ChefAccountScreen';
+import ChefProfileScreen from './ChefProfileScreen';
+import ChefPastOrdersScreen from './ChefPastOrdersScreen';
+import ChefReviewsScreen from './ChefReviewsScreen';
+// import SettingsScreen from './SettingsScreen';
+// import WithdrawalHistoryScreen from './WithdrawalHistoryScreen';
+// import LogOutScreen from './LogOutScreen';
+
+const Stack = createStackNavigator();
+
+const ChefAccountStackScreen = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false, // To hide the header for a cleaner look
+      }}
+    >
+      <Stack.Screen name="ChefAccount" component={ChefAccountScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="ChefProfile" component={ChefProfileScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="ChefPastOrders" component={ChefPastOrdersScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="ChefReviews" component={ChefReviewsScreen} options={{ headerShown: false }} />
+      {/* <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="WithdrawalHistory" component={WithdrawalHistoryScreen} />
+      <Stack.Screen name="LogOut" component={LogOutScreen} /> */}
+    </Stack.Navigator>
+  );
+};
+
+export default ChefAccountStackScreen;

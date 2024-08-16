@@ -180,7 +180,7 @@ const ChefDashboardScreen = () => {
   return (
     <StyledView style={{ flex: 1, backgroundColor: 'white' }}>
       <ImageBackground
-        source={require('../assets/images/FoodItemsScreenBgCorner.png')}
+        source={require('../assets/images/FoodItemsScreenBg.png')}
         style={styles.backgroundImg}
       />
       <SafeAreaView className='flex-1 justify-start items-center pt-4'>
@@ -414,7 +414,7 @@ const styles = StyleSheet.create({
   backgroundImg: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'white',
-    opacity: 1,
+    opacity: 0.5,
     zIndex: -5,
   },
   text: {
@@ -426,8 +426,8 @@ const styles = StyleSheet.create({
   shadowProp: {
     shadowColor: '#171717',
     shadowOffset: { width: -1, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
   },
   pickerContainer: {
     height: 50,

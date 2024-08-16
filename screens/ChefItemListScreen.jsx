@@ -107,9 +107,9 @@ const ChefItemListScreen = () => {
   );
 
   return (
-    <SafeAreaView className='flex-1 p-16'>
+    <SafeAreaView className='flex-1 p-16 bg-white'>
       <ImageBackground
-        source={require('../assets/images/FoodItemsScreenBgCorner.png')}
+        source={require('../assets/images/FoodItemsScreenBg.png')}
         style={styles.backgroundImg}
       />
       <View style={styles.headerContainer}>
@@ -169,7 +169,7 @@ const ChefItemListScreen = () => {
 
 const styles = StyleSheet.create({
   backgroundImg: {
-    ...StyleSheet.absoluteFillObject, backgroundColor: 'white', opacity: 1, zIndex: -5
+    ...StyleSheet.absoluteFillObject, backgroundColor: 'white', opacity: 0.5, zIndex: -5
   },
   headerContainer: {
     flexDirection: 'row',
@@ -217,7 +217,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 12,
     paddingHorizontal: 20,
-    backgroundColor: '#FFF',
     borderRadius: 10,
   },
   image: {
