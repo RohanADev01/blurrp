@@ -114,7 +114,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
                 className='font-semibold ml-2'
                 style={[styles.routeTabText, { color: tabColor }]}
               >
-                New
+                Requests
               </Text>
             </View>
           ),
@@ -166,7 +166,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
                 className='font-semibold ml-2'
                 style={[styles.routeTabText, { color: tabColor }]}
               >
-                Notif
+                Recent
               </Text>
             </View>
           ),
