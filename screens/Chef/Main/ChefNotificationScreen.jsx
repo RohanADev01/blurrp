@@ -9,16 +9,12 @@ import {
   SafeAreaView,
   ImageBackground,
 } from 'react-native';
-import * as Icon from 'react-native-feather';
 import { themeColors } from '@/theme';
-import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { NOTIF_TYPES, EXAMPLE_NOTIFICATIONS } from '../../../constants';
 
 const ChefNotificationScreen = () => {
   const [activeTab, setActiveTab] = useState('Notifications');
-  const navigation = useNavigation();
-
   const [fontsLoaded] = useFonts({
     'LondrinaSolid-Regular': require('../../../assets/fonts/LondrinaSolid-Regular.ttf'),
     Inter: require('../../../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
@@ -51,10 +47,7 @@ const ChefNotificationScreen = () => {
         source={require('../../../assets/images/FoodItemsScreenBg.png')}
         style={styles.backgroundImg}
       />
-      <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon.ChevronLeft strokeWidth={2} stroke='#000' />
-        </TouchableOpacity>
+      <View style={styles.container}>
         <Text style={styles.headerText}>Notifications</Text>
       </View>
       <View style={styles.tabContainer}>
@@ -106,23 +99,20 @@ const styles = StyleSheet.create({
     opacity: 0.5,
     zIndex: -5,
   },
-  headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    marginBottom: 16,
+  container: {
+    paddingHorizontal: 35,
   },
   headerText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginLeft: 8,
-    color: '#333',
+    fontSize: 25,
     fontFamily: 'Inter',
+    fontWeight: 'bold',
+    marginVertical: 20,
+    color: themeColors.grayDisplayText,
   },
   tabContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 16,
+    marginTop: 0,
     borderBottomWidth: 1,
     borderBottomColor: themeColors.inactiveButton,
     paddingHorizontal: 35,

@@ -139,10 +139,7 @@ const ChefItemListScreen = () => {
         source={require('../../../assets/images/FoodItemsScreenBg.png')}
         style={styles.backgroundImg}
       />
-      <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon.ChevronLeft strokeWidth={2} stroke='#000' />
-        </TouchableOpacity>
+      <View style={styles.container}>
         <Text style={styles.headerText}>My Food List</Text>
       </View>
       <View style={styles.tabContainer}>
@@ -232,22 +229,20 @@ const styles = StyleSheet.create({
     opacity: 0.5,
     zIndex: -5,
   },
-  headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    marginBottom: 16,
+  container: {
+    paddingHorizontal: 35,
   },
   headerText: {
-    fontSize: 18,
+    fontSize: 25,
+    fontFamily: 'Inter',
     fontWeight: 'bold',
-    marginLeft: 8,
+    marginVertical: 20,
     color: themeColors.grayDisplayText,
   },
   tabContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 16,
+    marginTop: 0,
     borderBottomWidth: 1,
     borderBottomColor: themeColors.inactiveButton,
     paddingHorizontal: 35,
