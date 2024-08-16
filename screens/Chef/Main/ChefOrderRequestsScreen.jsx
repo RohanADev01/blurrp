@@ -66,10 +66,6 @@ const ChefOrderRequestsScreen = () => {
         style={styles.backgroundImg}
       />
       <View style={styles.container}>
-        {/* Back Button */}
-        {/* <StyledButton onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Icon.ChevronLeft strokeWidth={4} stroke='white' />
-        </StyledButton> */}
         <Text style={styles.headerText}>Order Requests</Text>
       </View>
       {/* Orders List */}
@@ -155,16 +151,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     paddingHorizontal: 16,
   },
-  // backButton: {
-  //   backgroundColor: themeColors.button,
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  //   justifyContent: 'flex-start',
-  //   alignSelf: 'flex-start',
-  //   borderRadius: 20,
-  //   padding: 10,
-  //   marginTop: 16,
-  // },
   headerText: {
     fontSize: 25,
     fontFamily: 'Inter',

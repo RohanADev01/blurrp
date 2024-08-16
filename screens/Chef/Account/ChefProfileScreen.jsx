@@ -59,13 +59,7 @@ const ChefProfileScreen = ({ navigation }) => {
           {/* Back Button */}
           <StyledDiv
             onPress={() => navigation.goBack()}
-            style={{
-              backgroundColor: themeColors.button,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-              alignSelf: 'flex-start',
-            }}
+            style={styles.backButton}
             className='z-10 rounded-2xl p-4 shadow mt-8'
           >
             <Icon.ChevronLeft strokeWidth={4} stroke='white' />
@@ -142,6 +136,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     opacity: 0.5,
     zIndex: -5,
+  },
+  backButton: {
+    backgroundColor: themeColors.button,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignSelf: 'flex-start',
+    borderRadius: 20,
+    padding: 10,
+    marginTop: 16,
   },
   text: {
     paddingHorizontal: 0,

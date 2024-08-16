@@ -101,6 +101,16 @@ const styles = StyleSheet.create({
   text: {
     paddingHorizontal: 0,
   },
+  backButton: {
+    backgroundColor: themeColors.button,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignSelf: 'flex-start',
+    borderRadius: 20,
+    padding: 10,
+    marginTop: 16,
+  },
   orderItem: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -160,16 +170,6 @@ const styles = StyleSheet.create({
   orderListContainer: {
     marginHorizontal: 20,
     paddingHorizontal: 16,
-  },
-  backButton: {
-    backgroundColor: themeColors.button,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    alignSelf: 'flex-start',
-    borderRadius: 20,
-    padding: 10,
-    marginTop: 16,
   },
 });
 
