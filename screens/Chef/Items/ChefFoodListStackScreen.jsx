@@ -11,22 +11,22 @@ const ChefFoodListStackScreen = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="ChefItemList"
+        name='ChefItemList'
         component={ChefItemListScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="ChefItemDetails"
+        name='ChefItemDetails'
         component={ChefItemDetailsScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="ChefAddNewItem"
+        name='ChefAddNewItem'
         component={ChefAddNewItemScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="ChefEditItem"
+        name='ChefEditItem'
         component={ChefEditItemScreen}
         options={{ headerShown: false }}
       />

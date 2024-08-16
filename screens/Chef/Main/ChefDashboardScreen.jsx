@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
   ScrollView,
 } from 'react-native';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { styled } from 'nativewind';
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
@@ -25,11 +25,14 @@ import {
 } from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 import { LineChart } from 'react-native-chart-kit';
-import { getCurrentDisplayDate, getPast30DaysEveryXNumbers, getReorderedDaysOfWeek } from '../helpers';
+import {
+  getCurrentDisplayDate,
+  getPast30DaysEveryXNumbers,
+  getReorderedDaysOfWeek,
+} from '../../../helpers';
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
-const StyledButton = styled(TouchableOpacity);
 
 const isAllZeros = (data) => {
   if (!Array.isArray(data)) {
@@ -50,7 +53,7 @@ const defaultChartConfig = {
     borderRadius: 16,
   },
   propsForDots: {
-    r: (value) => (value === 0 ? 0 : 4),  // Set radius to 0 for dots where value is 0, otherwise 4,
+    r: (value) => (value === 0 ? 0 : 4), // Set radius to 0 for dots where value is 0, otherwise 4,
     strokeWidth: '2',
     stroke: '#ffa726',
   },
@@ -58,7 +61,7 @@ const defaultChartConfig = {
     display: 'none',
   },
   propsForLabels: {
-    fontSize: 12,  // This might not work directly, see alternatives below
+    fontSize: 12,
   },
 };
 
@@ -84,14 +87,15 @@ const CustomLineChart = ({
   // Hide labels (on y axis) for empty data
   if (isDataEmpty) {
     chartConfig = {
-      ...chartConfig, propsForHorizontalLabels: {
+      ...chartConfig,
+      propsForHorizontalLabels: {
         display: 'none',
       },
-    }
+    };
   }
 
-  noOrdersText = "No orders were placed  🙉"
-  ordersText = "You had orders!  🙌"
+  noOrdersText = 'No orders were placed  🙉';
+  ordersText = 'You had orders!  🙌';
 
   return (
     <View style={style}>
@@ -136,9 +140,9 @@ const CustomLineChart = ({
 
 const ChefDashboardScreen = () => {
   const [fontsLoaded] = useFonts({
-    'LondrinaSolid-Regular': require('../assets/fonts/LondrinaSolid-Regular.ttf'),
-    'LondrinaSolid-Light': require('../assets/fonts/LondrinaSolid-Light.ttf'),
-    Inter: require('../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
+    'LondrinaSolid-Regular': require('../../../assets/fonts/LondrinaSolid-Regular.ttf'),
+    'LondrinaSolid-Light': require('../../../assets/fonts/LondrinaSolid-Light.ttf'),
+    Inter: require('../../../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
   });
 
   const navigation = useNavigation();
@@ -164,31 +168,32 @@ const ChefDashboardScreen = () => {
   const graphData = [0, 0, 0, 0, 0, 0, 0];
   // const graphData = [1, 2, 0, 1, 0, 0, 3, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 1, 0, 3];
 
-  // function getDaysInMonth (year, month) {
-  //   // Note: month is 0-based (0 for January, 1 for February, etc.)
-  //   return new Date(year, month + 1, 0).getDate();
-  // }
-
   let allGraphLabels = {
-    'Daily': ['12AM', '6AM', '12PM', '6PM', '12PM'],
-    'Weekly': getReorderedDaysOfWeek(),
-    'Monthly': getPast30DaysEveryXNumbers(3), // Get values for graph based on dates from this, i.e. not necessarily past 30 days.
-  }
+    Daily: ['12AM', '6AM', '12PM', '6PM', '12PM'],
+    Weekly: getReorderedDaysOfWeek(),
+    Monthly: getPast30DaysEveryXNumbers(3), // Get values for graph based on dates from this, i.e. not necessarily past 30 days.
+  };
 
   const graphLabels = allGraphLabels[graphSelectOptions[selectedIndex.row]];
 
   return (
     <StyledView style={{ flex: 1, backgroundColor: 'white' }}>
       <ImageBackground
-        source={require('../assets/images/FoodItemsScreenBg.png')}
+        source={require('../../../assets/images/FoodItemsScreenBg.png')}
         style={styles.backgroundImg}
       />
       <SafeAreaView className='flex-1 justify-start items-center pt-4'>
         <View className='w-full px-4'>
-          <View className='flex-row justify-between items-center'>
-            <StyledButton className='p-2 bg-white rounded-xl'>
-              <Icon.Menu strokeWidth={3} stroke={themeColors.button} />
-            </StyledButton>
+          <View className='flex-row justify-between items-center p-1'>
+            <TouchableOpacity
+              style={{
+                borderColor: themeColors.button,
+                padding: 3,
+              }}
+              onPress={() => navigation.navigate('Notifications')}
+            >
+              <Icon.Bell strokeWidth={2.5} stroke={themeColors.button} />
+            </TouchableOpacity>
             <View className='flex-col items-center'>
               <StyledText
                 className='text-xs font-bold mt-2'
@@ -198,7 +203,7 @@ const ChefDashboardScreen = () => {
               </StyledText>
               <TouchableOpacity className='flex-row items-center'>
                 <StyledText
-                  className='text-md font-semibold text-black mt-2'
+                  className='text-md font-semibold mt-2'
                   style={[styles.textInter]}
                 >
                   5 Oxford Street
@@ -208,12 +213,11 @@ const ChefDashboardScreen = () => {
             <TouchableOpacity
               style={{
                 borderColor: themeColors.button,
-                borderWidth: 3,
-                padding: 0,
-                borderRadius: '50%',
+                padding: 3,
               }}
+              onPress={() => navigation.navigate('Account')}
             >
-              <Icon.User strokeWidth={3} stroke={themeColors.button} />
+              <Icon.User strokeWidth={2.5} stroke={themeColors.button} />
             </TouchableOpacity>
           </View>
         </View>
@@ -223,9 +227,10 @@ const ChefDashboardScreen = () => {
             <TouchableOpacity
               className='w-[45%] p-6 bg-white rounded-3xl items-start'
               style={[styles.shadowProp]}
+              onPress={() => navigation.navigate('RunningOrders')}
             >
               <StyledText
-                className='text-2xl font-bold text-black'
+                className='text-2xl font-bold'
                 style={[styles.textInter, { fontSize: 22 }]}
               >
                 {numRunningOrders}
@@ -240,9 +245,10 @@ const ChefDashboardScreen = () => {
             <TouchableOpacity
               className='w-[45%] p-6 bg-white rounded-3xl items-start'
               style={[styles.shadowProp]}
+              onPress={() => navigation.navigate('OrderRequests')}
             >
               <StyledText
-                className='text-2xl font-bold text-black'
+                className='text-2xl font-bold'
                 style={[styles.textInter, { fontSize: 22 }]}
               >
                 {numOrderRequests}
@@ -263,7 +269,7 @@ const ChefDashboardScreen = () => {
           >
             <View className='flex-row justify-between items-center'>
               <StyledText
-                className='text-lg font-regular text-black'
+                className='text-lg font-semibold'
                 style={[styles.textInter, { fontSize: 13 }]}
               >
                 Total Revenue
@@ -276,12 +282,12 @@ const ChefDashboardScreen = () => {
                     { color: themeColors.button, fontSize: 12 },
                   ]}
                 >
-                  {showChart ? "Hide Details" : "See Details"}
+                  {showChart ? 'Hide Details' : 'See Details'}
                 </StyledText>
               </TouchableOpacity>
             </View>
             <StyledText
-              className='text-2xl font-bold text-black'
+              className='text-2xl font-bold'
               style={[styles.textInter, { fontSize: 22 }]}
             >
               ${totalRevenue}
@@ -290,38 +296,38 @@ const ChefDashboardScreen = () => {
             {showChart && (
               <View>
                 <View className='flex-row justify-center items-center mt-4'>
-              <ApplicationProvider {...eva} theme={eva.light}>
-                <Layout
-                  className='flex-1 justify-center items-center p-4'
-                  level='1'
-                >
-                  <Select
-                    selectedIndex={selectedIndex}
-                    onSelect={(index) => setSelectedIndex(index)}
-                    value={graphSelectOptions[selectedIndex.row]}
-                    style={{
-                      width: 0.4 * width,
-                    }}
-                  >
-                    <SelectItem title='Daily' />
-                    <SelectItem title='Weekly' />
-                    <SelectItem title='Monthly' />
-                  </Select>
-                </Layout>
+                  <ApplicationProvider {...eva} theme={eva.light}>
+                    <Layout
+                      className='flex-1 justify-center items-center p-4'
+                      level='1'
+                    >
+                      <Select
+                        selectedIndex={selectedIndex}
+                        onSelect={(index) => setSelectedIndex(index)}
+                        value={graphSelectOptions[selectedIndex.row]}
+                        style={{
+                          width: 0.4 * width,
+                        }}
+                      >
+                        <SelectItem title='Daily' />
+                        <SelectItem title='Weekly' />
+                        <SelectItem title='Monthly' />
+                      </Select>
+                    </Layout>
                   </ApplicationProvider>
-            </View>
-            {/* Revenue Graph */}
-            <View className='mt-4' style={styles.chartContainer}>
-              <Text
-                className='text-xs font-regular mb-4'
-                style={[styles.textInter]}
-              >
+                </View>
+                {/* Revenue Graph */}
+                <View className='mt-4' style={styles.chartContainer}>
+                  <Text
+                    className='text-xs font-regular mb-4'
+                    style={[styles.textInter]}
+                  >
                     {getCurrentDisplayDate(selectedIndex.row)}
-              </Text>
-              <CustomLineChart
-                data={graphData}
-                labels={graphLabels}
-                width={width * 0.8}
+                  </Text>
+                  <CustomLineChart
+                    data={graphData}
+                    labels={graphLabels}
+                    width={width * 0.8}
                   />
                 </View>
               </View>
@@ -335,12 +341,16 @@ const ChefDashboardScreen = () => {
           >
             <View className='flex-row justify-between items-center'>
               <StyledText
-                className='text-lg font-regular text-black'
+                className='text-lg font-semibold'
                 style={[styles.textInter, { fontSize: 13 }]}
               >
                 Reviews
               </StyledText>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('ChefReviews');
+                }}
+              >
                 <StyledText
                   className='text-sm font-bold'
                   style={[
@@ -361,7 +371,7 @@ const ChefDashboardScreen = () => {
                 0.0
               </StyledText>
               <StyledText
-                className='text-sm text-gray-400 ml-2'
+                className='text-sm font-semibold ml-2'
                 style={[styles.textInter]}
               >
                 Total 0 Reviews
@@ -376,7 +386,7 @@ const ChefDashboardScreen = () => {
           >
             <View className='flex-row justify-between items-center'>
               <StyledText
-                className='text-lg font-regular text-black'
+                className='text-lg font-semibold'
                 style={[styles.textInter, { fontSize: 13 }]}
               >
                 Popular Items Recently
@@ -395,11 +405,11 @@ const ChefDashboardScreen = () => {
             </View>
             <View className='flex-row mt-2'>
               <Image
-                source={require('../assets/images/Sushi.png')}
+                source={require('../../../assets/images/Sushi.png')}
                 className='w-[45%] h-36 rounded-3xl'
               />
               <Image
-                source={require('../assets/images/Sushi.png')}
+                source={require('../../../assets/images/Sushi.png')}
                 className='w-[45%] h-36 rounded-3xl ml-2'
               />
             </View>
@@ -417,31 +427,15 @@ const styles = StyleSheet.create({
     opacity: 0.5,
     zIndex: -5,
   },
-  text: {
-    fontFamily: 'LondrinaSolid-Regular',
-  },
   textInter: {
     fontFamily: 'Inter',
+    color: themeColors.grayDisplayText,
   },
   shadowProp: {
     shadowColor: '#171717',
     shadowOffset: { width: -1, height: 2 },
     shadowOpacity: 0.15,
     shadowRadius: 10,
-  },
-  pickerContainer: {
-    height: 50,
-    borderWidth: 1,
-    borderColor: 'white',
-    borderRadius: 20,
-    backgroundColor: '#FFFFFF',
-    justifyContent: 'center',
-    fontFamily: 'Inter',
-    fontSize: 0,
-  },
-  picker: {
-    color: themeColors.grayText,
-    fontSize: 16,
   },
   chartContainer: {
     flexDirection: 'column',

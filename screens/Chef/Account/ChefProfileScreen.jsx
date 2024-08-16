@@ -1,5 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, KeyboardAvoidingView, Platform, ActivityIndicator, ImageBackground } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+  ActivityIndicator,
+  ImageBackground,
+} from 'react-native';
 import * as Icon from 'react-native-feather';
 import { themeColors } from '@/theme';
 import { styled } from 'nativewind';
@@ -16,8 +28,8 @@ const ChefProfileScreen = ({ navigation }) => {
   });
 
   const [fontsLoaded] = useFonts({
-    'LondrinaSolid-Regular': require('../assets/fonts/LondrinaSolid-Regular.ttf'),
-    Inter: require('../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
+    'LondrinaSolid-Regular': require('../../../assets/fonts/LondrinaSolid-Regular.ttf'),
+    Inter: require('../../../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
   });
 
   if (!fontsLoaded) {
@@ -36,7 +48,7 @@ const ChefProfileScreen = ({ navigation }) => {
   return (
     <SafeAreaView className='flex-1 pt-10 p-16 bg-white'>
       <ImageBackground
-        source={require('../assets/images/FoodItemsScreenBg.png')}
+        source={require('../../../assets/images/FoodItemsScreenBg.png')}
         style={styles.backgroundImg}
       />
       <KeyboardAvoidingView
@@ -45,7 +57,8 @@ const ChefProfileScreen = ({ navigation }) => {
       >
         <ScrollView contentContainerStyle={styles.container}>
           {/* Back Button */}
-          <StyledDiv onPress={() => navigation.goBack()}
+          <StyledDiv
+            onPress={() => navigation.goBack()}
             style={{
               backgroundColor: themeColors.button,
               flexDirection: 'row',
@@ -107,7 +120,10 @@ const ChefProfileScreen = ({ navigation }) => {
           </View>
 
           {/* Save Changes Button */}
-          <TouchableOpacity style={styles.saveButton} onPress={handleSaveChanges}>
+          <TouchableOpacity
+            style={styles.saveButton}
+            onPress={handleSaveChanges}
+          >
             <Text style={styles.saveButtonText}>Update Details</Text>
           </TouchableOpacity>
         </ScrollView>
@@ -122,18 +138,13 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   backgroundImg: {
-    ...StyleSheet.absoluteFillObject, backgroundColor: 'white', opacity: 0.5, zIndex: -5
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'white',
+    opacity: 0.5,
+    zIndex: -5,
   },
   text: {
     paddingHorizontal: 0,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: themeColors.grayDisplayText,
-    marginTop: 20,
-    marginBottom: 30,
-    textAlign: 'center',
   },
   inputContainer: {
     marginBottom: 20,

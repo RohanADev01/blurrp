@@ -1,8 +1,8 @@
-import { View, Text, StyleSheet, FlatList, Animated, useWindowDimensions, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, FlatList, Animated } from 'react-native';
 import React, { useRef, useState } from 'react';
 
-import OnboardingSlides from '../OnboardingSlides';
-import OnboardingItem from '../components/OnboardingItem';
+import OnboardingSlides from '../../constants/onboardingSlides';
+import OnboardingItem from '../../components/OnboardingItem';
 
 const OnboardingScreen = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -18,42 +18,33 @@ const OnboardingScreen = () => {
 
   const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
 
-  // When tapping left or right half of the screen
-  const { width } = useWindowDimensions();
-
-  const handleNext = () => {
-    if (currentIndex < OnboardingSlides.length - 1) {
-      slidesRef.current.scrollToIndex({ index: currentIndex + 1 });
-    }
-  };
-
-  const handlePrev = () => {
-    if (currentIndex > 0) {
-      slidesRef.current.scrollToIndex({ index: currentIndex - 1 });
-    }
-  };
-
   return (
     <View style={styles.container}>
       <FlatList
         data={OnboardingSlides}
-        renderItem={({ item }) => <OnboardingItem item={item} scrollX={scrollX} totalItems={OnboardingSlides.length} />}
+        renderItem={({ item }) => (
+          <OnboardingItem
+            item={item}
+            scrollX={scrollX}
+            totalItems={OnboardingSlides.length}
+          />
+        )}
         keyExtractor={(item) => item.id}
         pagingEnabled
         showsVerticalScrollIndicator={false}
         horizontal
         bounces={false}
         scrollEventThrottle={32}
-        onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
-          useNativeDriver: false,
-        })}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+          {
+            useNativeDriver: false,
+          }
+        )}
         onViewableItemsChanged={viewableItemsChanged}
         viewabilityConfig={viewConfig} // Important to include this to control how viewability is determined
         ref={slidesRef}
       />
-      {/* Navigate by tapping left or right half of the screen */}
-      {/* <TouchableOpacity style={[styles.touchableArea, styles.leftArea, { width: width / 6 }]} onPress={handlePrev} />
-      <TouchableOpacity style={[styles.touchableArea, styles.rightArea, { width: width / 6 }]} onPress={handleNext} /> */}
     </View>
   );
 };

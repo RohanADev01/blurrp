@@ -1,20 +1,27 @@
-import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, Image, TextInput, SafeAreaView, Dimensions } from 'react-native'
-import React from 'react'
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ImageBackground,
+  Image,
+  SafeAreaView,
+  Dimensions,
+} from 'react-native';
+import React from 'react';
 import { styled } from 'nativewind';
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import * as Icon from 'react-native-feather';
 import { themeColors } from '@/theme';
 
-const CenteredView = styled(View);
 const StyledButton = styled(TouchableOpacity);
-const StyledTextInput = styled(TextInput);
 const StyledDiv = styled(TouchableOpacity);
 
 const SignupProfileTypeScreen = () => {
   const [fontsLoaded] = useFonts({
-    'LondrinaSolid-Regular': require('../assets/fonts/LondrinaSolid-Regular.ttf'),
-    Inter: require('../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
+    'LondrinaSolid-Regular': require('../../assets/fonts/LondrinaSolid-Regular.ttf'),
+    Inter: require('../../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
   });
 
   if (!fontsLoaded) {
@@ -26,15 +33,16 @@ const SignupProfileTypeScreen = () => {
   const { width } = Dimensions.get('window');
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'black', }}>
+    <View style={{ flex: 1, backgroundColor: 'black' }}>
       <ImageBackground
-        source={require('../assets/images/FoodItemsScreenBgCorner.png')}
+        source={require('../../assets/images/FoodItemsScreenBgCorner.png')}
         style={styles.backgroundImg}
       />
 
       <SafeAreaView className='flex-1 justify-between items-center pt-10 mb-20'>
         <View style={{ width: '100%' }}>
-          <StyledDiv onPress={() => navigation.goBack()}
+          <StyledDiv
+            onPress={() => navigation.goBack()}
             style={{
               backgroundColor: themeColors.buttonBg,
               flexDirection: 'row',
@@ -55,21 +63,31 @@ const SignupProfileTypeScreen = () => {
           <View style={styles.container}>
             <TouchableOpacity style={styles.box}>
               <Image
-                source={require('../assets/images/Sushi.png')}
+                source={require('../../assets/images/Sushi.png')}
                 style={styles.image}
-                resizeMode="contain"
+                resizeMode='contain'
               />
-              <Text style={[styles.caption, { fontFamily: 'Inter', fontSize: 14 }]}>Foodie</Text>
+              <Text
+                style={[styles.caption, { fontFamily: 'Inter', fontSize: 14 }]}
+              >
+                Foodie
+              </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.box}>
+            <TouchableOpacity
+              style={styles.box}
+              onPress={() => navigation.navigate('ChefHomeScreen')}
+            >
               <Image
-                source={require('../assets/images/MascotLogoCropped1.png')}
+                source={require('../../assets/images/MascotLogoCropped1.png')}
                 style={styles.image}
-                resizeMode="contain"
+                resizeMode='contain'
               />
-              <Text style={[styles.caption, { fontFamily: 'Inter', fontSize: 14 }]}>Chef</Text>
+              <Text
+                style={[styles.caption, { fontFamily: 'Inter', fontSize: 14 }]}
+              >
+                Chef
+              </Text>
             </TouchableOpacity>
-
           </View>
         </View>
         <StyledButton
@@ -86,27 +104,18 @@ const SignupProfileTypeScreen = () => {
         </StyledButton>
       </SafeAreaView>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   backgroundImg: {
-    ...StyleSheet.absoluteFillObject, backgroundColor: 'black', opacity: 0.8, zIndex: -5
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'black',
+    opacity: 0.8,
+    zIndex: -5,
   },
   text: {
     paddingHorizontal: 35,
-  },
-  input: {
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    padding: 15,
-    borderRadius: 15,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 5, // for Android shadow
-    height: '10em',
   },
   container: {
     justifyContent: 'center',
@@ -121,7 +130,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 60, // Space inside the boxes
-    borderRadius: 10, // Optional: Add border-radius for rounded corners
+    borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
@@ -137,6 +146,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'black',
   },
-})
+});
 
-export default SignupProfileTypeScreen
+export default SignupProfileTypeScreen;

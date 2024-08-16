@@ -11,10 +11,6 @@ import {
 } from 'react-native';
 import * as Icon from 'react-native-feather';
 import { themeColors } from '@/theme';
-import { useNavigation } from '@react-navigation/native';
-import { styled } from 'nativewind';
-
-const StyledButton = styled(TouchableOpacity);
 
 const ChefItemDetailsScreen = ({ route, navigation }) => {
   const { itemDetails } = route.params;
@@ -36,13 +32,17 @@ const ChefItemDetailsScreen = ({ route, navigation }) => {
           <Icon.ChevronLeft strokeWidth={2} stroke='#000' />
         </TouchableOpacity>
         <Text style={styles.headerText}>Food Details</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('ChefEditItem', { itemDetails: itemDetails })}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('ChefEditItem', { itemDetails: itemDetails })
+          }
+        >
           <Text style={styles.editText}>EDIT</Text>
         </TouchableOpacity>
       </View>
 
       <Image
-        source={require('../assets/images/Sushi.png')}
+        source={require('../../../assets/images/Sushi.png')}
         style={styles.foodImage}
       />
 
@@ -89,7 +89,7 @@ const ChefItemDetailsScreen = ({ route, navigation }) => {
   return (
     <SafeAreaView classname='flex-1 p-16'>
       <ImageBackground
-        source={require('../assets/images/FoodItemsScreenBgCorner.png')}
+        source={require('../../../assets/images/FoodItemsScreenBgCorner.png')}
         style={styles.backgroundImg}
       />
       <FlatList
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   contentContainer: {
-    paddingBottom: 20, // To provide space at the bottom
+    paddingBottom: 20,
   },
 });
 

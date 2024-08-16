@@ -258,7 +258,9 @@ export const EXAMPLE_ORDERS = [
     itemName: 'Chicken Thai Biriyani',
     orderId: '#12345',
     orderDate: '2024-08-12',
-    orderTime: '12:00:00pm',
+    orderTime: '12:00pm',
+    orderDueDate: '2024-08-15',
+    orderDueTime: '1:50pm',
     itemImage: require('../assets/images/Sushi.png'),
     tag: 'Lunch',
   },
@@ -268,9 +270,16 @@ export const EXAMPLE_ORDERS = [
     itemName: 'Chicken Bhuna',
     orderId: '#12346',
     orderDate: '2024-08-10',
-    orderTime: '1:33:05pm',
+    orderTime: '1:33pm',
+    orderDueDate: '2024-08-11',
+    orderDueTime: '5:24pm',
     itemImage: require('../assets/images/Sushi.png'),
     tag: 'Dinner',
   },
   // Add more orders as needed
 ];
+
+export const CHEF_ADD_NEW_ITEM = {
+  id: 'add_new',
+  name: 'Add New Item',
+}

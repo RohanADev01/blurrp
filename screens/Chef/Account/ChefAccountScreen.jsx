@@ -17,16 +17,18 @@ const ProfileScreen = ({ navigation }) => {
   return (
     <SafeAreaView className='flex-1 pt-10 p-16 bg-white'>
       <ImageBackground
-        source={require('../assets/images/FoodItemsScreenBg.png')}
+        source={require('../../../assets/images/FoodItemsScreenBg.png')}
         style={styles.backgroundImg}
       />
 
       {/* Balance Section */}
       <View style={styles.balanceContainer}>
-        <Text style={styles.balanceLabel} className='font-regular'>Available Balance</Text>
+        <Text style={styles.balanceLabel} className='font-semibold'>
+          Available Balance
+        </Text>
         <Text style={styles.balanceAmount}>$25.00</Text>
         <StyledButton
-          className="p-4 mt-4 rounded-full"
+          className='p-4 mt-4 rounded-full'
           style={styles.withdrawButton}
           onPress={() => alert('Withdrawal functionality')}
         >
@@ -38,34 +40,40 @@ const ProfileScreen = ({ navigation }) => {
       <View style={styles.menuContainer}>
         <MenuItem
           icon={<Icon.User stroke='white' />}
-          label="Personal Info"
+          label='Personal Info'
           onPress={() => navigation.navigate('ChefProfile')}
         />
         <MenuItem
           icon={<Icon.Settings stroke='white' />}
-          label="Settings"
-          onPress={() => { }}
+          label='Settings'
+          onPress={() => {
+            alert('Settings');
+          }}
         />
         <MenuItem
           icon={<Icon.DollarSign stroke='white' />}
-          label="Withdrawal History"
-          onPress={() => { }}
+          label='Withdrawal History'
+          onPress={() => {
+            alert('Withdrawal History Not Found');
+          }}
         />
         <MenuItem
           icon={<Icon.FileText stroke='white' />}
-          label="Number of Orders"
+          label='Completed Orders'
           // value="1"
           onPress={() => navigation.navigate('ChefPastOrders')}
         />
         <MenuItem
           icon={<Icon.Star stroke='white' />}
-          label="User Reviews"
+          label='User Reviews'
           onPress={() => navigation.navigate('ChefReviews')}
         />
         <MenuItem
           icon={<Icon.LogOut stroke='white' />}
-          label="Log Out"
-          onPress={() => { alert('Logging Out') }}
+          label='Log Out'
+          onPress={() => {
+            alert('Logging Out');
+          }}
         />
       </View>
     </SafeAreaView>

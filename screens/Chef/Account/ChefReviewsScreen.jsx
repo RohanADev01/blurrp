@@ -1,5 +1,15 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, KeyboardAvoidingView, Platform, ActivityIndicator, ImageBackground, FlatList, Image } from 'react-native';
+import React from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  ActivityIndicator,
+  ImageBackground,
+  FlatList,
+  Image,
+} from 'react-native';
 import * as Icon from 'react-native-feather';
 import { themeColors } from '@/theme';
 import { styled } from 'nativewind';
@@ -10,8 +20,8 @@ const StyledDiv = styled(TouchableOpacity);
 
 const ChefReviewsScreen = ({ navigation }) => {
   const [fontsLoaded] = useFonts({
-    'LondrinaSolid-Regular': require('../assets/fonts/LondrinaSolid-Regular.ttf'),
-    Inter: require('../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
+    'LondrinaSolid-Regular': require('../../../assets/fonts/LondrinaSolid-Regular.ttf'),
+    Inter: require('../../../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
   });
 
   if (!fontsLoaded) {
@@ -26,19 +36,22 @@ const ChefReviewsScreen = ({ navigation }) => {
         <Text style={styles.action}>{item.action}</Text>
         <Text style={styles.time}>{item.time}</Text>
       </View>
-      {item.image !== '' && <Image source={item.image} style={styles.reviewImage} />}
+      {item.image !== '' && (
+        <Image source={item.image} style={styles.reviewImage} />
+      )}
     </View>
   );
 
   return (
     <SafeAreaView className='flex-1 pt-10 p-16 bg-white'>
       <ImageBackground
-        source={require('../assets/images/FoodItemsScreenBg.png')}
+        source={require('../../../assets/images/FoodItemsScreenBg.png')}
         style={styles.backgroundImg}
       />
       <View style={styles.container}>
         {/* Back Button */}
-        <StyledDiv onPress={() => navigation.goBack()}
+        <StyledDiv
+          onPress={() => navigation.goBack()}
           style={{
             backgroundColor: themeColors.button,
             flexDirection: 'row',
@@ -61,7 +74,9 @@ const ChefReviewsScreen = ({ navigation }) => {
       {/* User Review List */}
       <FlatList
         style={styles.reviewListContainer}
-        data={EXAMPLE_NOTIFICATIONS.filter(item => item.action.includes('review'))}
+        data={EXAMPLE_NOTIFICATIONS.filter((item) =>
+          item.action.includes('review')
+        )}
         renderItem={renderReviewItem}
         keyExtractor={(item) => item.id}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
@@ -75,7 +90,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 35,
   },
   backgroundImg: {
-    ...StyleSheet.absoluteFillObject, backgroundColor: 'white', opacity: 0.5, zIndex: -5
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'white',
+    opacity: 0.5,
+    zIndex: -5,
   },
   text: {
     paddingHorizontal: 0,
@@ -87,37 +105,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 30,
     textAlign: 'center',
-  },
-  inputContainer: {
-    marginBottom: 20,
-  },
-  label: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#666',
-    marginBottom: 8,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: themeColors.inactiveButton,
-    borderRadius: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-    fontSize: 16,
-    color: themeColors.grayDisplayText,
-    backgroundColor: themeColors.greyedButton,
-  },
-  saveButton: {
-    backgroundColor: themeColors.button,
-    paddingVertical: 16,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginTop: 30,
-  },
-  saveButtonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 16,
   },
   reviewItem: {
     flexDirection: 'row',
@@ -150,11 +137,6 @@ const styles = StyleSheet.create({
     color: themeColors.grayText,
     fontSize: 12,
   },
-  image: {
-    width: 80,
-    height: 80,
-    borderRadius: 10,
-  },
   separator: {
     height: 1,
     backgroundColor: themeColors.inactiveButton,
@@ -162,8 +144,8 @@ const styles = StyleSheet.create({
   },
   reviewListContainer: {
     marginHorizontal: 20,
-    paddingHorizontal: 16
-  }
+    paddingHorizontal: 16,
+  },
 });
 
 export default ChefReviewsScreen;

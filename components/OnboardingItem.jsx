@@ -15,67 +15,10 @@ import * as Icon from 'react-native-feather';
 import { useNavigation } from '@react-navigation/native';
 import { useFocusEffect } from '@react-navigation/native';
 import Paginator from '../components/Paginator';
-import OnboardingSlides from '@/OnboardingSlides';
 import { styled } from 'nativewind';
+import onboardingSlides from '@/constants/onboardingSlides';
 
 const StyledButton = styled(TouchableOpacity);
-
-const TypingEffect = ({ text, className, style, speed = 80, typingTextSetter = null }) => {
-  const [displayedText, setDisplayedText] = useState('');
-  const [showCursor, setShowCursor] = useState(true);
-  const [typingComplete, setTypingComplete] = useState(false);
-
-  useEffect(() => {
-    let currText = '';
-    let index = 0;
-
-    if (typingTextSetter) {
-      typingTextSetter(true);
-    }
-
-    const timer = setInterval(() => {
-      currText += text[index];
-      setDisplayedText(currText);
-      index++;
-
-      if (index === text.length) {
-        clearInterval(timer);
-
-        setTimeout(() => {
-          if (typingTextSetter) {
-            typingTextSetter(false);
-          };
-
-          setTypingComplete(true);
-        }, 500);
-      }
-    }, speed);
-
-    return () => clearInterval(timer);
-  }, [text, speed]);
-
-  useEffect(() => {
-    if (!typingComplete) {
-      const cursorTimer = setInterval(() => {
-        setShowCursor((prev) => !prev);
-      }, speed); // Blink cursor every speed ms
-
-      return () => clearInterval(cursorTimer);
-    } else {
-      setShowCursor(false); // Hide cursor when typing is complete
-    }
-  }, [typingComplete]);
-
-  return (
-    <>
-      <Text className={className} style={style}>
-        {/* {displayedText} {showCursor && !typingComplete ? "|" : " "} */}
-        {displayedText}
-      </Text>
-      {/* {showCursor && <Text className={className} style={style}>|</Text>} */}
-    </>
-  );
-};
 
 const OnboardingItem = ({ item, scrollX, totalItems }) => {
   const { width } = useWindowDimensions();
@@ -207,13 +150,7 @@ const OnboardingItem = ({ item, scrollX, totalItems }) => {
         <View style={styles.textContainer}>
           {item.title !== '' &&
             (item.id === 1 ? (
-              isVideoLoaded && (
-                // <TypingEffect
-                //   text={item.title}
-                //   className='text-white pt-6 font-bold text-center'
-                //   style={{ fontFamily: 'LondrinaSolid-Regular', fontSize: 29 }}
-                //   typingTextSetter={setIsTypingText}
-                // />
+            isVideoLoaded && (
                 <Animated.Text
                   className='text-white pt-6 font-bold text-center'
                   style={{ fontFamily: 'LondrinaSolid-Regular', fontSize: 29, opacity: fadeAnim }}
@@ -235,10 +172,7 @@ const OnboardingItem = ({ item, scrollX, totalItems }) => {
               >
                 {item.description}
               </Text>) : (
-              !isTypingText && (
-                // < TypingEffect text={item.description}
-                //   className='text-white font-regular mt-6 tracking-widest text-center'
-                //   style={{ fontFamily: 'Inter', fontSize: 14 }} />)
+                !isTypingText && (
                 <Animated.Text
                   className='text-white font-regular mt-6 tracking-widest text-center'
                   style={{ fontFamily: 'Inter', fontSize: 14, opacity: fadeAnim }} >{item.description}</Animated.Text>)
@@ -263,7 +197,7 @@ const OnboardingItem = ({ item, scrollX, totalItems }) => {
             </>
           )}
         </View>
-        {item.id !== totalItems && (<Paginator data={OnboardingSlides} scrollX={scrollX} />)}
+        {item.id !== totalItems && (<Paginator data={onboardingSlides} scrollX={scrollX} />)}
       </View>
     </View>
   );

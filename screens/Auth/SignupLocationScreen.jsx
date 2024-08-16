@@ -1,20 +1,28 @@
-import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, Image, TextInput, SafeAreaView, Dimensions } from 'react-native'
-import React from 'react'
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ImageBackground,
+  TextInput,
+  SafeAreaView,
+  Dimensions,
+} from 'react-native';
+import React from 'react';
 import { styled } from 'nativewind';
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import * as Icon from 'react-native-feather';
 import { themeColors } from '@/theme';
 
-const CenteredView = styled(View);
 const StyledButton = styled(TouchableOpacity);
 const StyledTextInput = styled(TextInput);
 const StyledDiv = styled(TouchableOpacity);
 
-const SignupBioScreen = () => {
+const SignupLocationScreen = () => {
   const [fontsLoaded] = useFonts({
-    'LondrinaSolid-Regular': require('../assets/fonts/LondrinaSolid-Regular.ttf'),
-    Inter: require('../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
+    'LondrinaSolid-Regular': require('../../assets/fonts/LondrinaSolid-Regular.ttf'),
+    Inter: require('../../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
   });
 
   if (!fontsLoaded) {
@@ -26,15 +34,16 @@ const SignupBioScreen = () => {
   const { width } = Dimensions.get('window');
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'black', }}>
+    <View style={{ flex: 1, backgroundColor: 'black' }}>
       <ImageBackground
-        source={require('../assets/images/FoodItemsScreenBgCorner.png')}
+        source={require('../../assets/images/FoodItemsScreenBgCorner.png')}
         style={styles.backgroundImg}
       />
 
       <SafeAreaView className='flex-1 justify-between items-center pt-10 mb-20'>
         <View>
-          <StyledDiv onPress={() => navigation.goBack()}
+          <StyledDiv
+            onPress={() => navigation.goBack()}
             style={{
               backgroundColor: themeColors.buttonBg,
               flexDirection: 'row',
@@ -50,34 +59,31 @@ const SignupBioScreen = () => {
             className='text-white font-bold mt-6 tracking-widest'
             style={[styles.text, { fontFamily: 'Inter', fontSize: 25 }]}
           >
-            Fill in your bio to get started
+            Set Your Location
           </Text>
-          <Text
-            className='text-white font-normal mt-4 tracking-regular'
-            style={[styles.text, { fontFamily: 'Inter', fontSize: 12 }]}
-          >
-            This data will be displayed in your account profile for security
-          </Text>
-          <View className='flex-col gap-2 items-center justify-center mt-4'>
+          <View className='flex-col gap-4 items-start justify-center mt-10 px-10'>
+            <View className='flex-row justify-start items-center'>
+              <Icon.Map strokeWidth={4} stroke={themeColors.button} />
+              <Text
+                className='text-white font-bold tracking-regular'
+                style={{ fontFamily: 'Inter', fontSize: 15, marginLeft: 10 }}
+              >
+                Your Location
+              </Text>
+            </View>
             <StyledTextInput
-              placeholder='First Name'
-              placeholderTextColor={themeColors.lightGrayText} // grey color for the placeholder
-              style={[styles.input, { width: width * 0.8 }, { borderColor: themeColors.lightGrayText }]}
-            />
-            <StyledTextInput
-              placeholder='Last Name'
-              placeholderTextColor={themeColors.lightGrayText} // grey color for the placeholder
-              style={[styles.input, { width: width * 0.8 }, { borderColor: themeColors.lightGrayText }]}
-            />
-            <StyledTextInput
-              placeholder='Mobile Number'
-              placeholderTextColor={themeColors.lightGrayText} // grey color for the placeholder
-              style={[styles.input, { width: width * 0.8 }, { borderColor: themeColors.lightGrayText }]}
+              placeholder='Set Location'
+              placeholderTextColor={themeColors.lightGrayText}
+              style={[
+                styles.input,
+                { width: width * 0.8 },
+                { borderColor: themeColors.lightGrayText },
+              ]}
             />
           </View>
         </View>
         <StyledButton
-          onPress={() => navigation.navigate('SignupMobileVerif')}
+          onPress={() => navigation.navigate('SignupSuccessful')}
           className='bg-[#FA330C] mt-4 px-5 py-3 rounded-xl'
           activeOpacity={0.8}
         >
@@ -90,12 +96,15 @@ const SignupBioScreen = () => {
         </StyledButton>
       </SafeAreaView>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   backgroundImg: {
-    ...StyleSheet.absoluteFillObject, backgroundColor: 'black', opacity: 0.8, zIndex: -5
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'black',
+    opacity: 0.8,
+    zIndex: -5,
   },
   text: {
     paddingHorizontal: 35,
@@ -112,6 +121,6 @@ const styles = StyleSheet.create({
     elevation: 5, // for Android shadow
     height: '10em',
   },
-})
+});
 
-export default SignupBioScreen
+export default SignupLocationScreen;

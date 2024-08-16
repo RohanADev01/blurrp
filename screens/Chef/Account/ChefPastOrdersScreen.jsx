@@ -1,5 +1,15 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, FlatList, Image, ImageBackground, ActivityIndicator } from 'react-native';
+import React from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  FlatList,
+  Image,
+  ImageBackground,
+  ActivityIndicator,
+} from 'react-native';
 import * as Icon from 'react-native-feather';
 import { themeColors } from '@/theme';
 import { styled } from 'nativewind';
@@ -10,8 +20,8 @@ const StyledDiv = styled(TouchableOpacity);
 
 const ChefPastOrdersScreen = ({ navigation }) => {
   const [fontsLoaded] = useFonts({
-    'LondrinaSolid-Regular': require('../assets/fonts/LondrinaSolid-Regular.ttf'),
-    Inter: require('../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
+    'LondrinaSolid-Regular': require('../../../assets/fonts/LondrinaSolid-Regular.ttf'),
+    Inter: require('../../../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
   });
 
   if (!fontsLoaded) {
@@ -21,17 +31,24 @@ const ChefPastOrdersScreen = ({ navigation }) => {
   const pastOrders = EXAMPLE_ORDERS;
 
   const renderOrderItem = ({ item }) => (
-    <View style={styles.orderItem}>
-      <Image source={item.itemImage} style={styles.orderImage} />
-      <View style={styles.orderTextContainer}>
-        <Text style={styles.personName}>{item.personName}</Text>
-        <Text style={styles.itemName}>{item.itemName}</Text>
-        <Text style={styles.orderDetails}>Order ID: {item.orderId}</Text>
-        <Text style={styles.orderDetails}>Date: {item.orderDate}</Text>
-        <Text style={styles.orderDetails}>Time: {item.orderTime}</Text>
-        <View style={styles.tagContainer}>
-          <Text style={styles.tag}>{item.tag}</Text>
+    <View>
+      <View style={styles.orderItem}>
+        <Image source={item.itemImage} style={styles.orderImage} />
+        <View style={styles.orderTextContainer}>
+          <Text style={styles.personName}>{item.personName}</Text>
+          <Text style={styles.itemName}>{item.itemName}</Text>
+          <Text style={styles.orderDetails}>Order ID: {item.orderId}</Text>
+          <Text style={styles.orderDetails}>Date: {item.orderDate}</Text>
+          <Text style={styles.orderDetails}>Time: {item.orderTime}</Text>
+          <View style={styles.tagContainer}>
+            <Text style={styles.tag}>{item.tag}</Text>
+          </View>
         </View>
+      </View>
+      <View className='flex-row justify-center items-center gap-4'>
+        <Text style={styles.orderDueText}>
+          Order was for {item.orderDueDate} at {item.orderDueTime}
+        </Text>
       </View>
     </View>
   );
@@ -39,19 +56,14 @@ const ChefPastOrdersScreen = ({ navigation }) => {
   return (
     <SafeAreaView className='flex-1 pt-10 p-16 bg-white'>
       <ImageBackground
-        source={require('../assets/images/FoodItemsScreenBg.png')}
+        source={require('../../../assets/images/FoodItemsScreenBg.png')}
         style={styles.backgroundImg}
       />
       <View style={styles.container}>
         {/* Back Button */}
-        <StyledDiv onPress={() => navigation.goBack()}
-          style={{
-            backgroundColor: themeColors.button,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-            alignSelf: 'flex-start',
-          }}
+        <StyledDiv
+          onPress={() => navigation.goBack()}
+          style={styles.backButton}
           className='z-10 rounded-2xl p-4 shadow mt-8'
         >
           <Icon.ChevronLeft strokeWidth={4} stroke='white' />
@@ -81,7 +93,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 35,
   },
   backgroundImg: {
-    ...StyleSheet.absoluteFillObject, backgroundColor: 'white', opacity: 0.5, zIndex: -5
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'white',
+    opacity: 0.5,
+    zIndex: -5,
   },
   text: {
     paddingHorizontal: 0,
@@ -117,6 +132,12 @@ const styles = StyleSheet.create({
     color: themeColors.grayText,
     marginTop: 2,
   },
+  orderDueText: {
+    fontWeight: 'bold',
+    color: themeColors.grayText,
+    marginTop: 2,
+    textAlign: 'center',
+  },
   tagContainer: {
     backgroundColor: themeColors.buttonBg,
     paddingVertical: 4,
@@ -138,8 +159,18 @@ const styles = StyleSheet.create({
   },
   orderListContainer: {
     marginHorizontal: 20,
-    paddingHorizontal: 16
-  }
+    paddingHorizontal: 16,
+  },
+  backButton: {
+    backgroundColor: themeColors.button,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignSelf: 'flex-start',
+    borderRadius: 20,
+    padding: 10,
+    marginTop: 16,
+  },
 });
 
 export default ChefPastOrdersScreen;

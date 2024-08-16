@@ -8,5 +8,6 @@ export const themeColors = {
   grayText: '#6b7280',
   grayDisplayText: '#333',
   inactiveButton: '#E4E4E4',
-  greyedButton: '#F8F8F8'
+  greyedButton: '#F8F8F8',
+  shadowColor: '#171717',
 }

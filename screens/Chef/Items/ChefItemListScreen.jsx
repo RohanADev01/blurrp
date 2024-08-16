@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, FlatList, Image, SafeAreaView, ImageBackground, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  FlatList,
+  Image,
+  SafeAreaView,
+  ImageBackground,
+} from 'react-native';
 import * as Icon from 'react-native-feather';
 import { themeColors } from '@/theme';
 import { useNavigation } from '@react-navigation/native';
-import { styled } from 'nativewind';
 import { useFonts } from 'expo-font';
-import { FOOD_ITEM_CATEGORIES } from '../constants';
-import { EXAMPLE_FOOD_ITEMS } from '../constants';
+import { CHEF_ADD_NEW_ITEM, FOOD_ITEM_CATEGORIES } from '../../../constants';
+import { EXAMPLE_FOOD_ITEMS } from '../../../constants';
 import { Menu, IconButton } from 'react-native-paper';
-
-
-const CenteredView = styled(View);
-const StyledButton = styled(TouchableOpacity);
 
 const ChefItemListScreen = () => {
   const [activeTab, setActiveTab] = useState(FOOD_ITEM_CATEGORIES[0]);
@@ -22,8 +26,8 @@ const ChefItemListScreen = () => {
   const foodItems = EXAMPLE_FOOD_ITEMS;
 
   const [fontsLoaded] = useFonts({
-    'LondrinaSolid-Regular': require('../assets/fonts/LondrinaSolid-Regular.ttf'),
-    Inter: require('../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
+    'LondrinaSolid-Regular': require('../../../assets/fonts/LondrinaSolid-Regular.ttf'),
+    Inter: require('../../../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
   });
 
   if (!fontsLoaded) {
@@ -36,140 +40,197 @@ const ChefItemListScreen = () => {
 
   const filteredFoodItems = (foodItems) => {
     if (activeTab === FOOD_ITEM_CATEGORIES[0]) {
-      return foodItems
+      return foodItems;
     }
     return foodItems.filter((item) => item.category === activeTab);
-  }
+  };
 
-  const renderFoodItem = ({ item }) => (
-    <TouchableOpacity onPress={() => handleFoodItemPress(item)} style={styles.foodItem}>
-      <Image source={item.image} style={styles.image} />
-      <View style={styles.foodTextContainer}>
-        <View style={styles.foodTitleRow}>
-          <Text style={styles.title}>{item.name}</Text>
-        </View>
-        <View style={styles.tagContainer}>
-          <Text style={styles.tag}>{item.category}</Text>
-        </View>
-        <View style={styles.ratingRow}>
-          <Icon.Star fill={themeColors.button} stroke="transparent" />
-          <Text style={styles.rating}>{item.rating}</Text>
-          <Text style={styles.reviews}>({item.reviews} Review)</Text>
-        </View>
-      </View>
-      <View style={styles.endContainer}>
-        <Menu
-          visible={menuVisible && selectedFoodItem === item.id}
-          onDismiss={() => setMenuVisible(false)}
-          anchor={
-            <IconButton
-              icon="dots-horizontal"
-              color="#333"
-              onPress={() => {
-                setSelectedFoodItem(item.id);
-                setMenuVisible(true);
-              }}
-            />
-          }
-          contentStyle={styles.menuContent}
+  const renderFoodItem = ({ item }) => {
+    if (item.isSpecial || item.id === 'add_new') {
+      // Render the "Add New Item" entry
+      return (
+        <TouchableOpacity
+          style={[styles.foodItem, styles.addNewItem]}
+          onPress={() => {
+            // Handle the action for adding a new item
+            navigation.navigate('ChefAddNewItem');
+          }}
         >
-          <Menu.Item
-            onPress={() => {
-              setMenuVisible(false);
-              navigation.navigate('ChefEditItem', { itemDetails: item });
-            }}
-            title="Edit"
-            leadingIcon="pencil"
-            style={styles.menuItem}
-            titleStyle={styles.menuItemText}
-          />
-          <Menu.Item
-            onPress={() => {
-              setMenuVisible(false);
-              // TODO: Handle delete action
-            }}
-            title="Delete"
-            leadingIcon="delete"
-            style={styles.menuItem}
-            titleStyle={styles.menuItemText}
-          />
-        </Menu>
-        <Text style={styles.price}>${item.price}</Text>
-        <View style={styles.deliveryMethodContainer}>
-          {item.deliveryMethods.map((method, idx) => {
-            return (
-              <Text style={styles.deliveryMethod} key={idx}>{method}</Text>
-            )
-          })}
+          <Text style={styles.addNewItemText}>{item.name}</Text>
+          <Icon.Plus stroke={themeColors.button} />
+        </TouchableOpacity>
+      );
+    }
+
+    return (
+      <TouchableOpacity
+        onPress={() => handleFoodItemPress(item)}
+        style={styles.foodItem}
+      >
+        <Image source={item.image} style={styles.image} />
+        <View style={styles.foodTextContainer}>
+          <View style={styles.foodTitleRow}>
+            <Text style={styles.title}>{item.name}</Text>
+          </View>
+          <View style={styles.tagContainer}>
+            <Text style={styles.tag}>{item.category}</Text>
+          </View>
+          <View style={styles.ratingRow}>
+            <Icon.Star fill={themeColors.button} stroke='transparent' />
+            <Text style={styles.rating}>{item.rating}</Text>
+            <Text style={styles.reviews}>({item.reviews} Review)</Text>
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
-  );
+        <View style={styles.endContainer}>
+          <Menu
+            visible={menuVisible && selectedFoodItem === item.id}
+            onDismiss={() => setMenuVisible(false)}
+            anchor={
+              <IconButton
+                icon='dots-horizontal'
+                color='#333'
+                onPress={() => {
+                  setSelectedFoodItem(item.id);
+                  setMenuVisible(true);
+                }}
+              />
+            }
+            contentStyle={styles.menuContent}
+          >
+            <Menu.Item
+              onPress={() => {
+                setMenuVisible(false);
+                navigation.navigate('ChefEditItem', { itemDetails: item });
+              }}
+              title='Edit'
+              leadingIcon='pencil'
+              style={styles.menuItem}
+              titleStyle={styles.menuItemText}
+            />
+            <Menu.Item
+              onPress={() => {
+                setMenuVisible(false);
+                // TODO: Handle delete action
+              }}
+              title='Delete'
+              leadingIcon='delete'
+              style={styles.menuItem}
+              titleStyle={styles.menuItemText}
+            />
+          </Menu>
+          <Text style={styles.price}>${item.price}</Text>
+          <View style={styles.deliveryMethodContainer}>
+            {item.deliveryMethods.map((method, idx) => {
+              return (
+                <Text style={styles.deliveryMethod} key={idx}>
+                  {method}
+                </Text>
+              );
+            })}
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <SafeAreaView className='flex-1 p-16 bg-white'>
       <ImageBackground
-        source={require('../assets/images/FoodItemsScreenBg.png')}
+        source={require('../../../assets/images/FoodItemsScreenBg.png')}
         style={styles.backgroundImg}
       />
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon.ChevronLeft strokeWidth={2} stroke="#000" />
+          <Icon.ChevronLeft strokeWidth={2} stroke='#000' />
         </TouchableOpacity>
         <Text style={styles.headerText}>My Food List</Text>
       </View>
       <View style={styles.tabContainer}>
         <TouchableOpacity
           onPress={() => setActiveTab(FOOD_ITEM_CATEGORIES[0])}
-          style={[styles.tab, activeTab === FOOD_ITEM_CATEGORIES[0] && styles.activeTab]}
+          style={[
+            styles.tab,
+            activeTab === FOOD_ITEM_CATEGORIES[0] && styles.activeTab,
+          ]}
         >
-          <Text style={[styles.tabText, activeTab === FOOD_ITEM_CATEGORIES[0] && styles.activeTabText]}>
+          <Text
+            style={[
+              styles.tabText,
+              activeTab === FOOD_ITEM_CATEGORIES[0] && styles.activeTabText,
+            ]}
+          >
             All
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setActiveTab(FOOD_ITEM_CATEGORIES[1])}
-          style={[styles.tab, activeTab === FOOD_ITEM_CATEGORIES[1] && styles.activeTab]}
+          style={[
+            styles.tab,
+            activeTab === FOOD_ITEM_CATEGORIES[1] && styles.activeTab,
+          ]}
         >
-          <Text style={[styles.tabText, activeTab === FOOD_ITEM_CATEGORIES[1] && styles.activeTabText]}>
+          <Text
+            style={[
+              styles.tabText,
+              activeTab === FOOD_ITEM_CATEGORIES[1] && styles.activeTabText,
+            ]}
+          >
             Breakfast
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setActiveTab(FOOD_ITEM_CATEGORIES[2])}
-          style={[styles.tab, activeTab === FOOD_ITEM_CATEGORIES[2] && styles.activeTab]}
+          style={[
+            styles.tab,
+            activeTab === FOOD_ITEM_CATEGORIES[2] && styles.activeTab,
+          ]}
         >
-          <Text style={[styles.tabText, activeTab === FOOD_ITEM_CATEGORIES[2] && styles.activeTabText]}>
+          <Text
+            style={[
+              styles.tabText,
+              activeTab === FOOD_ITEM_CATEGORIES[2] && styles.activeTabText,
+            ]}
+          >
             Lunch
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setActiveTab(FOOD_ITEM_CATEGORIES[3])}
-          style={[styles.tab, activeTab === FOOD_ITEM_CATEGORIES[3] && styles.activeTab]}
+          style={[
+            styles.tab,
+            activeTab === FOOD_ITEM_CATEGORIES[3] && styles.activeTab,
+          ]}
         >
-          <Text style={[styles.tabText, activeTab === FOOD_ITEM_CATEGORIES[3] && styles.activeTabText]}>
+          <Text
+            style={[
+              styles.tabText,
+              activeTab === FOOD_ITEM_CATEGORIES[3] && styles.activeTabText,
+            ]}
+          >
             Dinner
           </Text>
         </TouchableOpacity>
       </View>
-      <Text style={styles.itemCountText}>Total {filteredFoodItems(foodItems).length} items</Text>
+      <Text style={styles.itemCountText}>
+        Total {filteredFoodItems(foodItems).length} items
+      </Text>
       <FlatList
         style={styles.foodListContainer}
-        data={filteredFoodItems(foodItems)}
+        data={[...filteredFoodItems(foodItems), CHEF_ADD_NEW_ITEM]}
         renderItem={renderFoodItem}
         keyExtractor={(item) => item.id}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
       />
-      <TouchableOpacity onPress={() => navigation.navigate('ChefAddNewItem')} className='mb-5 mx-20 rounded-full' style={{ backgroundColor: themeColors.button }}>
-        <Text style={[styles.addButtonText]}>Add New Item</Text>
-      </TouchableOpacity>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   backgroundImg: {
-    ...StyleSheet.absoluteFillObject, backgroundColor: 'white', opacity: 0.5, zIndex: -5
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'white',
+    opacity: 0.5,
+    zIndex: -5,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -298,13 +359,21 @@ const styles = StyleSheet.create({
   foodListContainer: {
     marginHorizontal: 20,
   },
-  addButtonText: {
+  addNewItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingVertical: 12,
-    paddingHorizontal: 1,
-    alignSelf: 'center',
+    paddingHorizontal: 16,
+    backgroundColor: '#FFF',
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  addNewItemText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: 'white',
+    color: themeColors.button,
+    marginRight: 8,
   },
   menuContent: {
     backgroundColor: '#FFF',

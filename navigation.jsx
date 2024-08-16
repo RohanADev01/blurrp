@@ -1,15 +1,14 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './screens/HomeScreen';
-import TourScreen1 from './screens/TourScreen1';
-import OnboardingScreen from './screens/OnboardingScreen';
-import LoginScreen from './screens/LoginScreen';
-import SignupScreen from './screens/SignupScreen';
-import SignupBioScreen from './screens/SignupBioScreen';
-import SignupLocationScreen from './screens/SignupLocationScreen';
-import SignupMobileVerifScreen from './screens/SignupMobileVerifScreen';
-import SignupSuccessfulScreen from './screens/SignupSuccessfulScreen';
-import SignupProfileTypeScreen from './screens/SignupProfileTypeScreen';
-import ChefHomeScreen from './screens/ChefHomeScreen';
+import HomeScreen from './screens/AppLaunch/HomeScreen';
+import OnboardingScreen from './screens/AppLaunch/OnboardingScreen';
+import LoginScreen from './screens/Auth/LoginScreen';
+import SignupScreen from './screens/Auth/SignupScreen';
+import SignupBioScreen from './screens/Auth/SignupBioScreen';
+import SignupLocationScreen from './screens/Auth/SignupLocationScreen';
+import SignupMobileVerifScreen from './screens/Auth/SignupMobileVerifScreen';
+import SignupSuccessfulScreen from './screens/Auth/SignupSuccessfulScreen';
+import SignupProfileTypeScreen from './screens/Auth/SignupProfileTypeScreen';
+import ChefHomeScreen from './screens/Chef/Main/ChefHomeScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,7 +17,6 @@ function Navigation () {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false, animationEnabled: false }}>
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Tour1" component={TourScreen1} />
       <Stack.Screen name="Onboarding" component={OnboardingScreen} />
       <Stack.Screen name="Signup" component={SignupScreen} />
       <Stack.Screen name="SignupBio" component={SignupBioScreen} />

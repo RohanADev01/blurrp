@@ -1,9 +1,18 @@
-import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, Image, TextInput, SafeAreaView, Dimensions } from 'react-native'
-import React from 'react'
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ImageBackground,
+  Image,
+  TextInput,
+  SafeAreaView,
+  Dimensions,
+} from 'react-native';
+import React from 'react';
 import { styled } from 'nativewind';
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import * as Icon from 'react-native-feather';
 import { themeColors } from '@/theme';
 
 const CenteredView = styled(View);
@@ -13,8 +22,8 @@ const StyledDiv = styled(TouchableOpacity);
 
 const SignupScreen = () => {
   const [fontsLoaded] = useFonts({
-    'LondrinaSolid-Regular': require('../assets/fonts/LondrinaSolid-Regular.ttf'),
-    Inter: require('../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
+    'LondrinaSolid-Regular': require('../../assets/fonts/LondrinaSolid-Regular.ttf'),
+    Inter: require('../../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
   });
 
   if (!fontsLoaded) {
@@ -26,15 +35,15 @@ const SignupScreen = () => {
   const { width } = Dimensions.get('window');
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'black', }}>
+    <View style={{ flex: 1, backgroundColor: 'black' }}>
       <ImageBackground
-        source={require('../assets/images/FoodItemsScreenBg.png')}
+        source={require('../../assets/images/FoodItemsScreenBg.png')}
         style={styles.backgroundImg}
       />
 
       <SafeAreaView className='flex-1 justify-start items-center pt-10'>
         <Image
-          source={require('../assets/images/MascotLogoCropped.png')}
+          source={require('../../assets/images/MascotLogoCropped.png')}
           style={{ width: '50%', height: undefined, aspectRatio: 1 }}
           resizeMode='contain'
           className='mt-2'
@@ -54,13 +63,21 @@ const SignupScreen = () => {
         <View className='flex-col gap-2 items-start mt-4'>
           <StyledTextInput
             placeholder='Email'
-            placeholderTextColor={themeColors.lightGrayText} // grey color for the placeholder
-            style={[styles.input, { width: width * 0.8 }, { borderColor: themeColors.lightGrayText }]}
+            placeholderTextColor={themeColors.lightGrayText}
+            style={[
+              styles.input,
+              { width: width * 0.8 },
+              { borderColor: themeColors.lightGrayText },
+            ]}
           />
           <StyledTextInput
             placeholder='Password'
-            placeholderTextColor={themeColors.lightGrayText} // grey color for the placeholder
-            style={[styles.input, { width: width * 0.8 }, { borderColor: themeColors.lightGrayText }]}
+            placeholderTextColor={themeColors.lightGrayText}
+            style={[
+              styles.input,
+              { width: width * 0.8 },
+              { borderColor: themeColors.lightGrayText },
+            ]}
           />
         </View>
 
@@ -74,32 +91,48 @@ const SignupScreen = () => {
         {/* Alternate signup options */}
         <View className='flex-row gap-2 items-start mt-2'>
           <StyledDiv
-            style={[styles.input, { width: width * 0.35 }, { borderColor: themeColors.lightGrayText }]}
+            style={[
+              styles.input,
+              { width: width * 0.35 },
+              { borderColor: themeColors.lightGrayText },
+            ]}
           >
             <View className='flex-row gap-2 items-center justify-center'>
-              <Image source={require('../assets/images/FacebookIcon.png')} style={{ width: 25, height: 25, resizeMode: 'contain' }}></Image>
-              <Text className='text-black font-medium' style={{ fontFamily: 'Inter', fontSize: 14 }}>Facebook</Text>
+              <Image
+                source={require('../../assets/images/FacebookIcon.png')}
+                style={{ width: 25, height: 25, resizeMode: 'contain' }}
+              ></Image>
+              <Text
+                className='text-black font-medium'
+                style={{ fontFamily: 'Inter', fontSize: 14 }}
+              >
+                Facebook
+              </Text>
             </View>
           </StyledDiv>
           <StyledDiv
             placeholder='Password'
-            placeholderTextColor={themeColors.lightGrayText} // grey color for the placeholder
-            style={[styles.input, { width: width * 0.35 }, { borderColor: themeColors.lightGrayText }]}
+            placeholderTextColor={themeColors.lightGrayText}
+            style={[
+              styles.input,
+              { width: width * 0.35 },
+              { borderColor: themeColors.lightGrayText },
+            ]}
           >
             <View className='flex-row gap-2 items-center justify-center'>
-              <Image source={require('../assets/images/GoogleIcon.png')} style={{ width: 25, height: 25, resizeMode: 'contain' }}></Image>
-              <Text className='text-black font-medium' style={{ fontFamily: 'Inter', fontSize: 14 }}>Google</Text>
+              <Image
+                source={require('../../assets/images/GoogleIcon.png')}
+                style={{ width: 25, height: 25, resizeMode: 'contain' }}
+              ></Image>
+              <Text
+                className='text-black font-medium'
+                style={{ fontFamily: 'Inter', fontSize: 14 }}
+              >
+                Google
+              </Text>
             </View>
           </StyledDiv>
         </View>
-
-        {/* <CenteredView>
-          <TouchableOpacity>
-            <Text className='font-medium underline mt-2' style={{ fontFamily: 'Inter', fontSize: 14, color: themeColors.text }}>
-              Forgot Your Password?
-            </Text>
-          </TouchableOpacity>
-        </CenteredView> */}
 
         <StyledButton
           onPress={() => navigation.navigate('SignupBio')}
@@ -115,20 +148,34 @@ const SignupScreen = () => {
         </StyledButton>
 
         <CenteredView>
-          <TouchableOpacity onPress={() => { navigation.navigate('Login') }}>
-            <Text className='font-medium underline mt-4 text-center' style={{ fontFamily: 'Inter', fontSize: 14, color: themeColors.text }}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Login');
+            }}
+          >
+            <Text
+              className='font-medium underline mt-4 text-center'
+              style={{
+                fontFamily: 'Inter',
+                fontSize: 14,
+                color: themeColors.text,
+              }}
+            >
               already have an account?
             </Text>
           </TouchableOpacity>
         </CenteredView>
       </SafeAreaView>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   backgroundImg: {
-    ...StyleSheet.absoluteFillObject, backgroundColor: 'black', opacity: 0.5, zIndex: -5
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'black',
+    opacity: 0.5,
+    zIndex: -5,
   },
   input: {
     backgroundColor: '#FFFFFF',
@@ -142,6 +189,6 @@ const styles = StyleSheet.create({
     elevation: 5, // for Android shadow
     height: '10em',
   },
-})
+});
 
-export default SignupScreen
+export default SignupScreen;

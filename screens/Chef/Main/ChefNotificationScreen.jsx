@@ -1,24 +1,27 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, FlatList, Image, SafeAreaView, TextInput, ImageBackground } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  FlatList,
+  Image,
+  SafeAreaView,
+  ImageBackground,
+} from 'react-native';
 import * as Icon from 'react-native-feather';
 import { themeColors } from '@/theme';
 import { useNavigation } from '@react-navigation/native';
-import { styled } from 'nativewind';
 import { useFonts } from 'expo-font';
-import { NOTIF_TYPES, EXAMPLE_NOTIFICATIONS } from '../constants'
-
-const CenteredView = styled(View);
-const StyledButton = styled(TouchableOpacity);
-const StyledTextInput = styled(TextInput);
-const StyledDiv = styled(TouchableOpacity);
+import { NOTIF_TYPES, EXAMPLE_NOTIFICATIONS } from '../../../constants';
 
 const ChefNotificationScreen = () => {
   const [activeTab, setActiveTab] = useState('Notifications');
   const navigation = useNavigation();
 
   const [fontsLoaded] = useFonts({
-    'LondrinaSolid-Regular': require('../assets/fonts/LondrinaSolid-Regular.ttf'),
-    Inter: require('../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
+    'LondrinaSolid-Regular': require('../../../assets/fonts/LondrinaSolid-Regular.ttf'),
+    Inter: require('../../../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
   });
 
   if (!fontsLoaded) {
@@ -27,34 +30,47 @@ const ChefNotificationScreen = () => {
 
   const renderNotificationItem = ({ item }) => (
     <View style={styles.notificationItem}>
-      <Image source={item.type in NOTIF_TYPES ? NOTIF_TYPES[item.type] : item.image} style={styles.notifImage} />
+      <Image
+        source={item.type in NOTIF_TYPES ? NOTIF_TYPES[item.type] : item.image}
+        style={styles.notifImage}
+      />
       <View style={styles.notificationTextContainer}>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.action}>{item.action}</Text>
         <Text style={styles.time}>{item.time}</Text>
       </View>
-      {item.image !== '' && <Image source={item.image} style={styles.notifImage} />}
+      {item.image !== '' && (
+        <Image source={item.image} style={styles.notifImage} />
+      )}
     </View>
   );
 
   return (
     <SafeAreaView className='flex-1 p-16 bg-white'>
       <ImageBackground
-        source={require('../assets/images/FoodItemsScreenBg.png')}
+        source={require('../../../assets/images/FoodItemsScreenBg.png')}
         style={styles.backgroundImg}
       />
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon.ChevronLeft strokeWidth={2} stroke="#000" />
+          <Icon.ChevronLeft strokeWidth={2} stroke='#000' />
         </TouchableOpacity>
         <Text style={styles.headerText}>Notifications</Text>
       </View>
       <View style={styles.tabContainer}>
         <TouchableOpacity
           onPress={() => setActiveTab('Notifications')}
-          style={[styles.tab, activeTab === 'Notifications' && styles.activeTab]}
+          style={[
+            styles.tab,
+            activeTab === 'Notifications' && styles.activeTab,
+          ]}
         >
-          <Text style={[styles.tabText, activeTab === 'Notifications' && styles.activeTabText]}>
+          <Text
+            style={[
+              styles.tabText,
+              activeTab === 'Notifications' && styles.activeTabText,
+            ]}
+          >
             Notifications
           </Text>
         </TouchableOpacity>
@@ -62,7 +78,12 @@ const ChefNotificationScreen = () => {
           // TODO: Once implemented, set activeTab to 'Messages'
           style={[styles.tab, activeTab === 'Messages' && styles.activeTab]}
         >
-          <Text style={[styles.tabText, activeTab === 'Messages' && styles.activeTabText]}>
+          <Text
+            style={[
+              styles.tabText,
+              activeTab === 'Messages' && styles.activeTabText,
+            ]}
+          >
             Messages (0)
           </Text>
         </TouchableOpacity>
@@ -80,7 +101,10 @@ const ChefNotificationScreen = () => {
 
 const styles = StyleSheet.create({
   backgroundImg: {
-    ...StyleSheet.absoluteFillObject, backgroundColor: 'white', opacity: 0.5, zIndex: -5
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'white',
+    opacity: 0.5,
+    zIndex: -5,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -94,9 +118,6 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     color: '#333',
     fontFamily: 'Inter',
-  },
-  text: {
-    paddingHorizontal: 35,
   },
   tabContainer: {
     flexDirection: 'row',
@@ -153,11 +174,6 @@ const styles = StyleSheet.create({
     color: themeColors.grayText,
     fontSize: 12,
   },
-  image: {
-    width: 80,
-    height: 80,
-    borderRadius: 10,
-  },
   separator: {
     height: 1,
     backgroundColor: themeColors.inactiveButton,
@@ -166,7 +182,7 @@ const styles = StyleSheet.create({
   notifListContainer: {
     marginHorizontal: 20,
     paddingHorizontal: 0,
-  }
+  },
 });
 
 export default ChefNotificationScreen;

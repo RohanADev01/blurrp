@@ -13,28 +13,39 @@ import {
 } from 'react-native';
 import * as Icon from 'react-native-feather';
 import { themeColors } from '@/theme';
-import { styled } from 'nativewind';
-import { DRINK_INGREDIENTS, FOOD_INGREDIENTS, FOOD_ITEM_CATEGORIES, FOOD_ITEM_TYPES } from '../constants';
+import {
+  DRINK_INGREDIENTS,
+  EMPTY_FOOD_ITEM,
+  FOOD_INGREDIENTS,
+  FOOD_ITEM_CATEGORIES,
+  FOOD_ITEM_TYPES,
+} from '../../../constants';
 
-const StyledButton = styled(TouchableOpacity);
-
-const ChefEditItemScreen = ({ route, navigation }) => {
-  const { itemDetails } = route.params;
+const ChefAddNewItemScreen = ({ route, navigation }) => {
+  const itemDetails = EMPTY_FOOD_ITEM;
 
   // Store the updated item details in useState
   const [newItemDetails, setNewItemDetails] = useState(itemDetails);
-  const [pickup, setPickup] = useState(itemDetails.deliveryMethods.includes('Pickup'));
-  const [delivery, setDelivery] = useState(itemDetails.deliveryMethods.includes('Delivery'));
+  const [pickup, setPickup] = useState(
+    itemDetails.deliveryMethods.includes('Pickup')
+  );
+  const [delivery, setDelivery] = useState(
+    itemDetails.deliveryMethods.includes('Delivery')
+  );
 
   // Determine which ingredients to show based on itemDetails.type
   const ingredientsToShow =
     itemDetails.type === 'Food' ? FOOD_INGREDIENTS : DRINK_INGREDIENTS;
 
   // Create a map of selected ingredients for quick lookup
-  const selectedIngredients = new Set(newItemDetails.ingredients.map((i) => i.name));
+  const selectedIngredients = new Set(
+    newItemDetails.ingredients.map((i) => i.name)
+  );
 
   // Store selected meal type (All Day, Breakfast, Lunch, Dinner)
-  const [selectedCategory, setSelectedCategory] = useState(itemDetails.category || 'All Day');
+  const [selectedCategory, setSelectedCategory] = useState(
+    itemDetails.category || 'All Day'
+  );
 
   const resetItemDetails = () => {
     setNewItemDetails(itemDetails);
@@ -53,14 +64,26 @@ const ChefEditItemScreen = ({ route, navigation }) => {
       key={type}
       style={[
         styles.typeOption,
-        { backgroundColor: newItemDetails.type === type ? themeColors.buttonBg : themeColors.greyedButton }
+        {
+          backgroundColor:
+            newItemDetails.type === type
+              ? themeColors.buttonBg
+              : themeColors.greyedButton,
+        },
       ]}
       onPress={() => setNewItemDetails({ ...newItemDetails, type })}
     >
-      <Text style={[
-        styles.typeOptionText,
-        { color: newItemDetails.type === type ? themeColors.button : themeColors.inactiveButton }
-      ]}>
+      <Text
+        style={[
+          styles.typeOptionText,
+          {
+            color:
+              newItemDetails.type === type
+                ? themeColors.button
+                : themeColors.inactiveButton,
+          },
+        ]}
+      >
         {type}
       </Text>
     </TouchableOpacity>
@@ -71,28 +94,42 @@ const ChefEditItemScreen = ({ route, navigation }) => {
       key={category}
       style={[
         styles.typeOption,
-        { backgroundColor: newItemDetails.category === category ? themeColors.buttonBg : themeColors.greyedButton }
+        {
+          backgroundColor:
+            newItemDetails.category === category
+              ? themeColors.buttonBg
+              : themeColors.greyedButton,
+        },
       ]}
       onPress={() => handleCategorySelection(category)}
     >
-      <Text style={[
-        styles.typeOptionText,
-        { color: selectedCategory === category ? themeColors.button : themeColors.inactiveButton }
-      ]}>
+      <Text
+        style={[
+          styles.typeOptionText,
+          {
+            color:
+              selectedCategory === category
+                ? themeColors.button
+                : themeColors.inactiveButton,
+          },
+        ]}
+      >
         {category}
       </Text>
     </TouchableOpacity>
   );
 
   const renderIngredientItem = ({ item }) => {
-    const isSelected = selectedIngredients.has(item.name);;
+    const isSelected = selectedIngredients.has(item.name);
 
     const handleIngredientPress = () => {
       let updatedIngredients;
 
       if (isSelected) {
         // Remove ingredient if already selected
-        updatedIngredients = newItemDetails.ingredients.filter((i) => i.name !== item.name);
+        updatedIngredients = newItemDetails.ingredients.filter(
+          (i) => i.name !== item.name
+        );
       } else {
         // Add ingredient if not already selected
         updatedIngredients = [...newItemDetails.ingredients, item];
@@ -105,7 +142,11 @@ const ChefEditItemScreen = ({ route, navigation }) => {
       <TouchableOpacity
         style={[
           styles.ingredientItem,
-          { backgroundColor: isSelected ? themeColors.buttonBg : themeColors.greyedButton },
+          {
+            backgroundColor: isSelected
+              ? themeColors.buttonBg
+              : themeColors.greyedButton,
+          },
           item.allergy && styles.allergy,
         ]}
         onPress={handleIngredientPress}
@@ -119,12 +160,14 @@ const ChefEditItemScreen = ({ route, navigation }) => {
           {item.allergy && <Text style={styles.allergyText}> (Allergy)</Text>}
         </View>
       </TouchableOpacity>
-    )
+    );
   };
 
   const handleSaveChanges = () => {
     // Validate new price
-    if (isNaN(newItemDetails.price || typeof (newItemDetails.price) !== 'number')) {
+    if (
+      isNaN(newItemDetails.price || typeof newItemDetails.price !== 'number')
+    ) {
       alert('Please enter a valid price.');
       return;
     } else {
@@ -133,7 +176,7 @@ const ChefEditItemScreen = ({ route, navigation }) => {
       if (newPrice < 0.5) {
         newPrice = 0.5;
       }
-      setNewItemDetails({ ...newItemDetails, price: newPrice })
+      setNewItemDetails({ ...newItemDetails, price: newPrice });
       alert(newPrice);
     }
 
@@ -148,23 +191,21 @@ const ChefEditItemScreen = ({ route, navigation }) => {
       return;
     }
 
-    if (
-      newItemDetails.deliveryMethods.length === 0
-    ) {
+    if (newItemDetails.deliveryMethods.length === 0) {
       alert('Please select at least one delivery method.');
       return;
     }
 
-    alert(JSON.stringify(newItemDetails))
-  }
+    alert(JSON.stringify(newItemDetails));
+  };
 
   const renderHeader = (newItemDetails) => (
     <>
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon.ChevronLeft strokeWidth={2} stroke="#000" />
+          <Icon.ChevronLeft strokeWidth={2} stroke='#000' />
         </TouchableOpacity>
-        <Text style={styles.headerText}>Edit Food Item</Text>
+        <Text style={styles.headerText}>Add New Food Item</Text>
         <TouchableOpacity onPress={() => resetItemDetails()}>
           <Text style={styles.editText}>RESET</Text>
         </TouchableOpacity>
@@ -176,13 +217,22 @@ const ChefEditItemScreen = ({ route, navigation }) => {
           style={styles.input}
           maxLength={38}
           value={newItemDetails.name}
-          onChangeText={(text) => setNewItemDetails({ ...newItemDetails, name: text })}
+          onChangeText={(text) =>
+            setNewItemDetails({ ...newItemDetails, name: text })
+          }
         />
       </View>
 
       <Text style={styles.sectionTitle}>UPLOAD PHOTO</Text>
       <TouchableOpacity style={styles.imageUploadContainer}>
-        {itemDetails.image ? <Image source={require('../assets/images/UploadImage.png')} style={styles.foodImage} /> : itemDetails.image}
+        {itemDetails.image === '' ? (
+          <Image
+            source={require('../../../assets/images/UploadImage.png')}
+            style={styles.foodImage}
+          />
+        ) : (
+          itemDetails.image
+        )}
       </TouchableOpacity>
 
       <View style={styles.priceContainer}>
@@ -190,7 +240,12 @@ const ChefEditItemScreen = ({ route, navigation }) => {
         <TextInput
           style={styles.input}
           value={`$${newItemDetails.price}`}
-          onChangeText={(text) => setNewItemDetails({ ...newItemDetails, price: text.replace('$', '') })}
+          onChangeText={(text) =>
+            setNewItemDetails({
+              ...newItemDetails,
+              price: text.replace('$', ''),
+            })
+          }
         />
       </View>
 
@@ -206,41 +261,73 @@ const ChefEditItemScreen = ({ route, navigation }) => {
 
       <Text style={styles.sectionTitle}>DELIVERY OPTIONS</Text>
       <View style={styles.typeOptions}>
-        <TouchableOpacity style={[
-          styles.typeOption,
-          { backgroundColor: pickup ? themeColors.buttonBg : themeColors.greyedButton }
-        ]} onPress={() => {
-          setPickup(!pickup);
-          const updatedDeliveryMethods = !pickup
-            ? [...newItemDetails.deliveryMethods, 'Pickup']
-            : newItemDetails.deliveryMethods.filter(method => method !== 'Pickup');
+        <TouchableOpacity
+          style={[
+            styles.typeOption,
+            {
+              backgroundColor: pickup
+                ? themeColors.buttonBg
+                : themeColors.greyedButton,
+            },
+          ]}
+          onPress={() => {
+            setPickup(!pickup);
+            const updatedDeliveryMethods = !pickup
+              ? [...newItemDetails.deliveryMethods, 'Pickup']
+              : newItemDetails.deliveryMethods.filter(
+                (method) => method !== 'Pickup'
+              );
 
-          setNewItemDetails({ ...newItemDetails, deliveryMethods: updatedDeliveryMethods });
-        }}>
-          <Text style={[
-            styles.typeOptionText,
-            { color: pickup ? themeColors.button : themeColors.inactiveButton }
-          ]}>
+            setNewItemDetails({
+              ...newItemDetails,
+              deliveryMethods: updatedDeliveryMethods,
+            });
+          }}
+        >
+          <Text
+            style={[
+              styles.typeOptionText,
+              {
+                color: pickup ? themeColors.button : themeColors.inactiveButton,
+              },
+            ]}
+          >
             Pickup
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[
-          styles.typeOption,
-          { backgroundColor: delivery ? themeColors.buttonBg : themeColors.greyedButton }
-        ]}
+        <TouchableOpacity
+          style={[
+            styles.typeOption,
+            {
+              backgroundColor: delivery
+                ? themeColors.buttonBg
+                : themeColors.greyedButton,
+            },
+          ]}
           onPress={() => {
             setDelivery(!delivery);
             const updatedDeliveryMethods = !delivery
               ? [...newItemDetails.deliveryMethods, 'Delivery']
-              : newItemDetails.deliveryMethods.filter(method => method !== 'Delivery');
+              : newItemDetails.deliveryMethods.filter(
+                (method) => method !== 'Delivery'
+              );
 
-            setNewItemDetails({ ...newItemDetails, deliveryMethods: updatedDeliveryMethods });
+            setNewItemDetails({
+              ...newItemDetails,
+              deliveryMethods: updatedDeliveryMethods,
+            });
           }}
         >
-          <Text style={[
-            styles.typeOptionText,
-            { color: delivery ? themeColors.button : themeColors.inactiveButton }
-          ]}>
+          <Text
+            style={[
+              styles.typeOptionText,
+              {
+                color: delivery
+                  ? themeColors.button
+                  : themeColors.inactiveButton,
+              },
+            ]}
+          >
             Delivery
           </Text>
         </TouchableOpacity>
@@ -256,12 +343,17 @@ const ChefEditItemScreen = ({ route, navigation }) => {
       <TextInput
         style={styles.detailsInput}
         value={newItemDetails.description}
-        onChangeText={(text) => setNewItemDetails({ ...newItemDetails, description: text })}
+        onChangeText={(text) =>
+          setNewItemDetails({ ...newItemDetails, description: text })
+        }
         multiline
       />
 
-      <TouchableOpacity style={styles.saveButton} onPress={() => handleSaveChanges()}>
-        <Text style={styles.saveButtonText}>SAVE CHANGES</Text>
+      <TouchableOpacity
+        style={styles.saveButton}
+        onPress={() => handleSaveChanges()}
+      >
+        <Text style={styles.saveButtonText}>ADD NEW ITEM</Text>
       </TouchableOpacity>
     </>
   );
@@ -345,7 +437,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     paddingHorizontal: 20,
     marginBottom: 16,
-    gap: 20
+    gap: 20,
   },
   typeOption: {
     paddingVertical: 8,
@@ -360,13 +452,6 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontWeight: 'bold',
     fontSize: 14,
-    color: '#666',
-    paddingHorizontal: 20,
-    marginBottom: 12,
-  },
-  sectionSubTitle: {
-    fontWeight: 'bold',
-    fontSize: 11,
     color: '#666',
     paddingHorizontal: 20,
     marginBottom: 12,
@@ -429,4 +514,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChefEditItemScreen;
+export default ChefAddNewItemScreen;
