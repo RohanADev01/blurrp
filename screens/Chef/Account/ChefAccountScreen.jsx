@@ -60,7 +60,6 @@ const ProfileScreen = ({ navigation }) => {
         <MenuItem
           icon={<Icon.FileText stroke='white' />}
           label='Completed Orders'
-          // value="1"
           onPress={() => navigation.navigate('ChefPastOrders')}
         />
         <MenuItem
