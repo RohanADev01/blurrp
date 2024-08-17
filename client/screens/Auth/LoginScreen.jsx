@@ -143,6 +143,7 @@ const LoginScreen = () => {
           />
           <StyledTextInput
             placeholder='Password'
+            secureTextEntry={true}
             placeholderTextColor={themeColors.lightGrayText}
             style={[
               styles.input,
@@ -260,7 +261,7 @@ const LoginScreen = () => {
                 color: themeColors.text,
               }}
             >
-              don't have an account?
+              Don't Have An Account?
             </Text>
           </TouchableOpacity>
         </CenteredView>
