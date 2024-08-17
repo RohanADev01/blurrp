@@ -10,6 +10,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
+  ImageBackground,
 } from 'react-native';
 import * as Icon from 'react-native-feather';
 import { themeColors } from '@/theme';
@@ -360,6 +361,10 @@ const ChefAddNewItemScreen = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+      <ImageBackground
+        source={require('../../../assets/images/FoodItemsScreenBgCorner.png')}
+        style={styles.backgroundImg}
+      />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
@@ -380,6 +385,12 @@ const ChefAddNewItemScreen = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  backgroundImg: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'white',
+    opacity: 1,
+    zIndex: -5,
+  },
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
