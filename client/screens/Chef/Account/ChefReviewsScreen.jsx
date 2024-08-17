@@ -51,7 +51,7 @@ const ChefReviewsScreen = ({ navigation }) => {
       <View style={styles.container}>
         {/* Back Button */}
         <StyledDiv
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate('ChefAccount')}
           style={styles.backButton}
           className='z-10 rounded-2xl p-4 shadow mt-8'
         >

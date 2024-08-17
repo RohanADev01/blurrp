@@ -348,7 +348,7 @@ const ChefDashboardScreen = () => {
               </StyledText>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate('ChefReviews');
+                  navigation.navigate('Account', { screen: 'ChefReviews' });
                 }}
               >
                 <StyledText

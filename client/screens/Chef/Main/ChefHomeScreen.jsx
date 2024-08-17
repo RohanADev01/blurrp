@@ -192,7 +192,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
                 className='font-semibold ml-2'
                 style={[styles.routeTabText, { color: tabColor }]}
               >
-                Profile
+                Account
               </Text>
             </View>
           ),
