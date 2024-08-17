@@ -55,3 +55,13 @@ Join our community of developers creating universal apps.
 ```bash
 npx expo prebuild
 ```
+
+```bash
+npx expo run:ios
+eas build --platform ios
+```
+
+```bash
+npx expo run:android
+eas build --platform android
+```
