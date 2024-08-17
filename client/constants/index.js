@@ -1,9 +1,9 @@
 // constants.js
 export const NOTIF_TYPES = {
-  'welcomeNotif': require('../assets/images/WelcomeIcon.png'),
-  'userNotif': require('../assets/images/UserIcon.png'),
-  'sysNotif': require('../assets/images/NotifIcon.png')
-}
+  welcomeNotif: require('../assets/images/WelcomeIcon.png'),
+  userNotif: require('../assets/images/UserIcon.png'),
+  sysNotif: require('../assets/images/NotifIcon.png'),
+};
 
 export const EXAMPLE_NOTIFICATIONS = [
   {
@@ -50,15 +50,15 @@ export const EXAMPLE_NOTIFICATIONS = [
     id: '1',
     type: 'welcomeNotif',
     title: 'Welcome to Blurrp!!!',
-    action: 'We\'re so excited to have you here!',
+    action: "We're so excited to have you here!",
     time: '10 mins ago',
     image: '',
   },
 ];
 
-export const FOOD_ITEM_CATEGORIES = ['All Day', 'Breakfast', 'Lunch', 'Dinner']
+export const FOOD_ITEM_CATEGORIES = ['All Day', 'Breakfast', 'Lunch', 'Dinner'];
 
-export const FOOD_ITEM_TYPES = ['Food', 'Drink']
+export const FOOD_ITEM_TYPES = ['Food', 'Drink'];
 
 export const FOOD_INGREDIENTS = [
   {
@@ -83,9 +83,7 @@ export const FOOD_INGREDIENTS = [
   },
   {
     category: 'Fruits',
-    ingredients: [
-      { name: 'Berries', allergy: true },
-    ],
+    ingredients: [{ name: 'Berries', allergy: true }],
   },
   {
     category: 'Nuts',
@@ -100,7 +98,7 @@ export const FOOD_INGREDIENTS = [
       { name: 'Chest nuts', allergy: true },
       { name: 'Hazelnuts', allergy: true },
       { name: 'Pistachios', allergy: true },
-      { name: 'Other', allergy: false },
+      // { name: 'Other', allergy: false },
     ],
   },
   {
@@ -125,15 +123,11 @@ export const DRINK_INGREDIENTS = [
   },
   {
     category: 'Fruits',
-    ingredients: [
-      { name: 'Berries', allergy: true },
-    ],
+    ingredients: [{ name: 'Berries', allergy: true }],
   },
   {
     category: 'Nuts',
-    ingredients: [
-      { name: 'Nuts', allergy: true },
-    ],
+    ingredients: [{ name: 'Nuts', allergy: true }],
   },
   {
     category: 'Other',
@@ -143,7 +137,6 @@ export const DRINK_INGREDIENTS = [
     ],
   },
 ];
-
 
 export const EXAMPLE_FOOD_ITEMS = [
   {
@@ -249,7 +242,7 @@ export const EMPTY_FOOD_ITEM = {
   image: '',
   description: '',
   ingredients: [],
-}
+};
 
 export const EXAMPLE_ORDERS = [
   {
@@ -276,10 +269,9 @@ export const EXAMPLE_ORDERS = [
     itemImage: require('../assets/images/Sushi.png'),
     tag: 'Dinner',
   },
-  // Add more orders as needed
 ];
 
 export const CHEF_ADD_NEW_ITEM = {
   id: 'add_new',
   name: 'Add New Item',
-}
+};
