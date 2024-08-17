@@ -9,11 +9,25 @@ import {
   SafeAreaView,
   Dimensions,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'nativewind';
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { themeColors } from '@/theme';
+
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as AuthSession from 'expo-auth-session';
+
+import {
+  EXPO_CLIENT_ID,
+  ANDROID_CLIENT_ID,
+  IOS_CLIENT_ID,
+  WEB_CLIENT_ID,
+} from '../../constants/authCredentials';
+
+WebBrowser.maybeCompleteAuthSession();
 
 const CenteredView = styled(View);
 const StyledButton = styled(TouchableOpacity);
@@ -25,6 +39,63 @@ const LoginScreen = () => {
     'LondrinaSolid-Regular': require('../../assets/fonts/LondrinaSolid-Regular.ttf'),
     Inter: require('../../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
   });
+
+  const [token, setToken] = useState('');
+  const [userInfo, setUserInfo] = useState(null);
+
+  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+    expoClientId: EXPO_CLIENT_ID,
+    androidClientId: ANDROID_CLIENT_ID,
+    iosClientId: IOS_CLIENT_ID,
+    webClientId: WEB_CLIENT_ID,
+    redirectUri: AuthSession.makeRedirectUri({ useProxy: true }),
+  });
+
+  // Re-render on change to response or token
+  useEffect(() => {
+    handleSignInWithGoogle();
+  }, [response, token]);
+
+  // Helper function, check if user is already logged in
+  const getLocalUser = async () => {
+    const data = await AsyncStorage.getItem('@user');
+    if (!data) return null;
+    return JSON.parse(data);
+  };
+
+  // Helper function, get user information by sending fetch request to Google API Endpoint
+  const getUserInfo = async (token) => {
+    if (!token) return;
+    try {
+      const response = await fetch(
+        `https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${token}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      const user = await response.json();
+      await AsyncStorage.setItem('@user', JSON.stringify(user));
+      setUserInfo(user);
+    } catch (error) {
+      // Handle error
+      alert('Could not sign in with Google. Try again later.');
+      console.error(
+        `Error signing in token: ${token}, error: ${error.message}.`
+      );
+    }
+  };
+
+  async function handleSignInWithGoogle () {
+    const user = await getLocalUser();
+    if (!user) {
+      if (response?.type === 'success') {
+        getUserInfo(response.authentication.accessToken);
+      }
+    } else {
+      setUserInfo(user);
+    }
+  }
 
   if (!fontsLoaded) {
     return <ActivityIndicator />;
@@ -88,10 +159,14 @@ const LoginScreen = () => {
           Or Continue With
         </Text>
 
+        <Text className='text-white font-bold mt-4 tracking-regular'>
+          {JSON.stringify(userInfo)}
+        </Text>
+
         {/* Alternate login options */}
         <View className='flex-row gap-2 items-start mt-2'>
           <StyledDiv
-            placeholder='Email'
+            placeholder='Facebook'
             placeholderTextColor={themeColors.lightGrayText}
             style={[
               styles.input,
@@ -99,7 +174,10 @@ const LoginScreen = () => {
               { borderColor: themeColors.lightGrayText },
             ]}
           >
-            <View className='flex-row gap-2 items-center justify-center'>
+            <TouchableOpacity
+              className='flex-row gap-2 items-center justify-center'
+              onPress={() => AsyncStorage.removeItem('@user')}
+            >
               <Image
                 source={require('../../assets/images/FacebookIcon.png')}
                 style={{ width: 25, height: 25, resizeMode: 'contain' }}
@@ -108,12 +186,12 @@ const LoginScreen = () => {
                 className='text-black font-medium text-center'
                 style={{ fontFamily: 'Inter', fontSize: 14 }}
               >
-                Facebook
+                DelLocalSto.
               </Text>
-            </View>
+            </TouchableOpacity>
           </StyledDiv>
           <StyledDiv
-            placeholder='Password'
+            placeholder='Google'
             placeholderTextColor={themeColors.lightGrayText}
             style={[
               styles.input,
@@ -121,7 +199,11 @@ const LoginScreen = () => {
               { borderColor: themeColors.lightGrayText },
             ]}
           >
-            <View className='flex-row gap-2 items-center justify-center'>
+            <TouchableOpacity
+              className='flex-row gap-2 items-center justify-center'
+              disabled={!request}
+              onPress={() => promptAsync()}
+            >
               <Image
                 source={require('../../assets/images/GoogleIcon.png')}
                 style={{ width: 25, height: 25, resizeMode: 'contain' }}
@@ -132,7 +214,7 @@ const LoginScreen = () => {
               >
                 Google
               </Text>
-            </View>
+            </TouchableOpacity>
           </StyledDiv>
         </View>
 

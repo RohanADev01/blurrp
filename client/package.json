@@ -19,6 +19,7 @@
     "@eva-design/eva": "^2.2.0",
     "@expo/metro-config": "^0.18.10",
     "@expo/vector-icons": "^14.0.2",
+    "@react-native-async-storage/async-storage": "^1.24.0",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-picker/picker": "^2.7.7",
     "@react-navigation/bottom-tabs": "^6.6.1",
@@ -27,8 +28,10 @@
     "@react-navigation/stack": "^6.4.1",
     "@ui-kitten/components": "^5.3.1",
     "expo": "~51.0.23",
+    "expo-auth-session": "~5.5.2",
     "expo-av": "~14.0.6",
     "expo-constants": "~16.0.2",
+    "expo-crypto": "~13.0.2",
     "expo-font": "~12.0.9",
     "expo-linking": "~6.3.1",
     "expo-router": "~3.5.19",
@@ -51,9 +54,7 @@
     "react-native-screens": "^3.31.1",
     "react-native-svg": "15.2.0",
     "react-native-svg-transformer": "^0.10.0",
-    "react-native-web": "~0.19.10",
-    "expo-auth-session": "~5.5.2",
-    "expo-crypto": "~13.0.2"
+    "react-native-web": "~0.19.10"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
