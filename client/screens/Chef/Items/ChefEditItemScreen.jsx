@@ -34,7 +34,7 @@ const ChefEditItemScreen = ({ route, navigation }) => {
 
   // Determine which ingredients to show based on itemDetails.type
   const ingredientsToShow =
-    itemDetails.type === 'Food' ? FOOD_INGREDIENTS : DRINK_INGREDIENTS;
+    newItemDetails.type === 'Food' ? FOOD_INGREDIENTS : DRINK_INGREDIENTS;
 
   // Create a map of selected ingredients for quick lookup
   const selectedIngredients = new Set(
@@ -247,11 +247,6 @@ const ChefEditItemScreen = ({ route, navigation }) => {
         />
       </View>
 
-      <Text style={styles.sectionTitle}>FOOD TYPE</Text>
-      <View style={styles.typeOptions}>
-        {FOOD_ITEM_TYPES.map(renderTypeOption)}
-      </View>
-
       <Text style={styles.sectionTitle}>CATEGORY</Text>
       <View style={styles.typeOptions}>
         {FOOD_ITEM_CATEGORIES.map(renderCategoryOption)}
@@ -329,6 +324,11 @@ const ChefEditItemScreen = ({ route, navigation }) => {
             Delivery
           </Text>
         </TouchableOpacity>
+      </View>
+
+      <Text style={styles.sectionTitle}>FOOD TYPE</Text>
+      <View style={styles.typeOptions}>
+        {FOOD_ITEM_TYPES.map(renderTypeOption)}
       </View>
 
       <Text style={styles.sectionTitle}>INGREDIENTS</Text>
@@ -480,6 +480,7 @@ const styles = StyleSheet.create({
   },
   allergyText: {
     fontSize: 10,
+    color: themeColors.button,
   },
   detailsInput: {
     borderWidth: 1,
