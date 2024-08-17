@@ -5,11 +5,11 @@
     "owner": "blurrp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/adaptive-icon.png",
+    "icon": "./assets/images/icon1.png",
     "scheme": "client",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/adaptive-icon.png",
+      "image": "./assets/images/splash1.png",
       "resizeMode": "contain",
       "backgroundColor": "#000000"
     },
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/icon1.png",
         "backgroundColor": "#000000"
       },
       "package": "com.blurrp.client"
