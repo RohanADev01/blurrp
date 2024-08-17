@@ -177,7 +177,7 @@ const ChefDashboardScreen = () => {
   const graphLabels = allGraphLabels[graphSelectOptions[selectedIndex.row]];
 
   return (
-    <StyledView style={{ flex: 1, backgroundColor: 'white' }}>
+    <StyledView className='flex-1 py-12 bg-white'>
       <ImageBackground
         source={require('../../../assets/images/FoodItemsScreenBg.png')}
         style={styles.backgroundImg}
@@ -223,7 +223,7 @@ const ChefDashboardScreen = () => {
         </View>
 
         <ScrollView className='w-full px-4'>
-          <View className='mt-6 flex-row justify-between'>
+          <View className='mt-6 flex-row justify-between mx-1'>
             <TouchableOpacity
               className='w-[45%] p-6 bg-white rounded-3xl items-start'
               style={[styles.shadowProp]}
@@ -264,7 +264,7 @@ const ChefDashboardScreen = () => {
 
           {/* Revenue */}
           <View
-            className='mt-6 p-4 bg-white rounded-3xl'
+            className='mt-6 p-4 bg-white rounded-3xl mx-1'
             style={[styles.shadowProp]}
           >
             <View className='flex-row justify-between items-center'>
@@ -336,7 +336,7 @@ const ChefDashboardScreen = () => {
 
           {/* Reviews */}
           <View
-            className='mt-6 p-4 bg-white rounded-3xl'
+            className='mt-6 p-4 bg-white rounded-3xl mx-1'
             style={[styles.shadowProp]}
           >
             <View className='flex-row justify-between items-center'>
@@ -381,7 +381,7 @@ const ChefDashboardScreen = () => {
 
           {/* Popular Items */}
           <View
-            className='my-6 p-4 bg-white rounded-3xl'
+            className='my-6 p-4 bg-white rounded-3xl mx-1'
             style={[styles.shadowProp]}
           >
             <View className='flex-row justify-between items-center'>
@@ -436,6 +436,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -1, height: 2 },
     shadowOpacity: 0.15,
     shadowRadius: 10,
+    elevation: 5, // for Android shadow
   },
   chartContainer: {
     flexDirection: 'column',

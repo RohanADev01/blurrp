@@ -199,7 +199,7 @@ const ChefEditItemScreen = ({ route, navigation }) => {
   };
 
   const renderHeader = (newItemDetails) => (
-    <>
+    <View>
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Icon.ChevronLeft strokeWidth={2} stroke='#000' />
@@ -333,11 +333,11 @@ const ChefEditItemScreen = ({ route, navigation }) => {
       </View>
 
       <Text style={styles.sectionTitle}>INGREDIENTS</Text>
-    </>
+    </View>
   );
 
   const renderFooter = (newItemDetails) => (
-    <>
+    <View>
       <Text style={styles.sectionTitle}>DESCRIPTION</Text>
       <TextInput
         style={styles.detailsInput}
@@ -354,11 +354,11 @@ const ChefEditItemScreen = ({ route, navigation }) => {
       >
         <Text style={styles.saveButtonText}>SAVE CHANGES</Text>
       </TouchableOpacity>
-    </>
+    </View>
   );
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+    <SafeAreaView className='flex-1 py-12 bg-white'>
       <ImageBackground
         source={require('../../../assets/images/FoodItemsScreenBgCorner.png')}
         style={styles.backgroundImg}

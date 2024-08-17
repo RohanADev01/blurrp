@@ -46,7 +46,7 @@ const ChefProfileScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView className='flex-1 pt-10 p-16 bg-white'>
+    <SafeAreaView className='flex-1 pt-10 py-12 bg-white'>
       <ImageBackground
         source={require('../../../assets/images/FoodItemsScreenBg.png')}
         style={styles.backgroundImg}

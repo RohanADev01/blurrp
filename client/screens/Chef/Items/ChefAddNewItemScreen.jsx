@@ -360,7 +360,7 @@ const ChefAddNewItemScreen = ({ route, navigation }) => {
   );
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+    <SafeAreaView className='flex-1 py-12 bg-white'>
       <ImageBackground
         source={require('../../../assets/images/FoodItemsScreenBgCorner.png')}
         style={styles.backgroundImg}

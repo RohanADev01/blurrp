@@ -234,10 +234,12 @@ const ChefHomeScreen = () => {
 
 const styles = StyleSheet.create({
   shadowProp: {
+    backgroundColor: '#FFFFFF',
     shadowColor: themeColors.shadowColor,
     shadowOffset: { width: -1, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
+    elevation: 10, // for Android shadow
   },
   routeTab: {
     flexDirection: 'column',
