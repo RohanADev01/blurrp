@@ -65,3 +65,8 @@ eas build --platform ios
 npx expo run:android
 eas build --platform android
 ```
+
+# IMPORTANT NOTES:
+
+## Auth Packages
+Ensure that libraries `expo-secure-storage`, `aes-js` and `react-native-get-random-values` are always up-to-date

@@ -15,7 +15,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.blurrp.client"
+      "bundleIdentifier": "com.blurrp.client",
+      "infoPlist": {
+      "CFBundleURLTypes": [
+        {
+          "CFBundleURLSchemes": ["com.googleusercontent.apps.264104114957-5dl9i3iciag5uqgfv83rkhb00cgp7eat"]
+        }
+      ]
+    }
     },
     "android": {
       "adaptiveIcon": {
@@ -31,7 +38,14 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      "expo-font",
+      "expo-secure-store",
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.264104114957-5dl9i3iciag5uqgfv83rkhb00cgp7eat"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
