@@ -8,19 +8,43 @@ import {
   TextInput,
   SafeAreaView,
   Dimensions,
+  Alert,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from 'nativewind';
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { themeColors } from '@/theme';
 
+import 'react-native-url-polyfill/auto';
+import { supabaseSecureStore } from '../../utils/auth';
+import GoogleAuthBtn from '../../components/Auth';
+
 const CenteredView = styled(View);
 const StyledButton = styled(TouchableOpacity);
 const StyledTextInput = styled(TextInput);
-const StyledDiv = styled(TouchableOpacity);
 
 const SignupScreen = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  async function signUpWithEmail () {
+    setLoading(true);
+    const {
+      data: { session },
+      error,
+    } = await supabaseSecureStore.auth.signUp({
+      email: email,
+      password: password,
+    });
+
+    if (error) Alert.alert(error.message);
+    if (!session && !error)
+      Alert.alert('Signup Successful!');
+    setLoading(false);
+  }
+
   const [fontsLoaded] = useFonts({
     'LondrinaSolid-Regular': require('../../assets/fonts/LondrinaSolid-Regular.ttf'),
     Inter: require('../../assets/fonts/Inter-VariableFont_opsz,wght.ttf'),
@@ -49,13 +73,13 @@ const SignupScreen = () => {
           className='mt-2'
         />
         <Text
-          className='text-white mt-2'
+          className='text-white mt-2 text-center'
           style={{ fontFamily: 'LondrinaSolid-Regular', fontSize: 28 }}
         >
           Blurrp
         </Text>
         <Text
-          className='text-white font-bold mt-6 tracking-widest'
+          className='text-white font-bold mt-6 tracking-widest text-center'
           style={{ fontFamily: 'Inter', fontSize: 20 }}
         >
           Sign Up For Free
@@ -69,6 +93,7 @@ const SignupScreen = () => {
               { width: width * 0.8 },
               { borderColor: themeColors.lightGrayText },
             ]}
+            onChangeText={(text) => setEmail(text)}
           />
           <StyledTextInput
             placeholder='Password'
@@ -79,65 +104,15 @@ const SignupScreen = () => {
               { width: width * 0.8 },
               { borderColor: themeColors.lightGrayText },
             ]}
+            onChangeText={(text) => setPassword(text)}
           />
         </View>
 
-        <Text
-          className='text-white font-bold mt-4 tracking-regular'
-          style={{ fontFamily: 'Inter', fontSize: 14 }}
-        >
-          Or Continue With
-        </Text>
-
-        {/* Alternate signup options */}
-        <View className='flex-row gap-2 items-start mt-2'>
-          <StyledDiv
-            style={[
-              styles.input,
-              { width: width * 0.35 },
-              { borderColor: themeColors.lightGrayText },
-            ]}
-          >
-            <View className='flex-row gap-2 items-center justify-center'>
-              <Image
-                source={require('../../assets/images/FacebookIcon.png')}
-                style={{ width: 25, height: 25, resizeMode: 'contain' }}
-              ></Image>
-              <Text
-                className='text-black font-medium'
-                style={{ fontFamily: 'Inter', fontSize: 14 }}
-              >
-                Facebook
-              </Text>
-            </View>
-          </StyledDiv>
-          <StyledDiv
-            placeholder='Password'
-            placeholderTextColor={themeColors.lightGrayText}
-            style={[
-              styles.input,
-              { width: width * 0.35 },
-              { borderColor: themeColors.lightGrayText },
-            ]}
-          >
-            <View className='flex-row gap-2 items-center justify-center'>
-              <Image
-                source={require('../../assets/images/GoogleIcon.png')}
-                style={{ width: 25, height: 25, resizeMode: 'contain' }}
-              ></Image>
-              <Text
-                className='text-black font-medium'
-                style={{ fontFamily: 'Inter', fontSize: 14 }}
-              >
-                Google
-              </Text>
-            </View>
-          </StyledDiv>
-        </View>
-
+        {/* Signup Button */}
         <StyledButton
+          // onPress={() => signUpWithEmail()}
           onPress={() => navigation.navigate('SignupBio')}
-          className='bg-[#FA330C] mt-4 px-5 py-3 rounded-xl'
+          className='bg-[#FA330C] mt-4 px-3 py-2 rounded-xl'
           activeOpacity={0.8}
         >
           <Text
@@ -148,6 +123,18 @@ const SignupScreen = () => {
           </Text>
         </StyledButton>
 
+        {/* Alternate signup options */}
+        <Text
+          className='text-white font-bold mt-4 tracking-regular'
+          style={{ fontFamily: 'Inter', fontSize: 14 }}
+        >
+          Or Continue With
+        </Text>
+
+        <View className='flex-col gap-2 align-center justify-center mt-2'>
+          <GoogleAuthBtn />
+        </View>
+
         <CenteredView>
           <TouchableOpacity
             onPress={() => {
@@ -155,7 +142,7 @@ const SignupScreen = () => {
             }}
           >
             <Text
-              className='font-medium underline mt-4 text-center'
+              className='font-medium mt-4 text-center'
               style={{
                 fontFamily: 'Inter',
                 fontSize: 14,
@@ -188,7 +175,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 5, // for Android shadow
-    height: '10em',
+    height: 50,
   },
 });
 

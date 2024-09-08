@@ -8,6 +8,7 @@ import {
   TextInput,
   SafeAreaView,
   Dimensions,
+  Alert,
 } from 'react-native';
 import React, { useState } from 'react';
 import { styled } from 'nativewind';
@@ -17,7 +18,6 @@ import { themeColors } from '@/theme';
 
 import 'react-native-url-polyfill/auto';
 import { supabaseSecureStore } from '../../utils/auth';
-
 import GoogleAuthBtn from '../../components/Auth';
 
 const CenteredView = styled(View);
@@ -103,38 +103,26 @@ const LoginScreen = () => {
           />
         </View>
 
-        <Text
-          className='text-white font-bold mt-4 tracking-regular'
-          style={{ fontFamily: 'Inter', fontSize: 14 }}
-        >
-          Or Continue With
-        </Text>
-
-        <Text></Text>
-
-        {/* Alternate login options */}
-        <View className='flex-col gap-2 align-center justify-center mt-2'>
-          <GoogleAuthBtn />
-        </View>
-
+        {/* Forgot Password */}
         <CenteredView>
           <TouchableOpacity>
             <Text
-              className='font-medium underline mt-2 text-center'
+              className='font-medium mt-4 text-center'
               style={{
                 fontFamily: 'Inter',
-                fontSize: 14,
-                color: themeColors.text,
+                fontSize: 12,
+                color: themeColors.lightGrayText,
               }}
             >
-              Forgot Your Password?
+              Forgot Password
             </Text>
           </TouchableOpacity>
         </CenteredView>
 
+        {/* Login Button */}
         <StyledButton
-          onPress={() => navigation.navigate('ChefHomeScreen')}
-          className='bg-[#FA330C] mt-4 px-5 py-3 rounded-xl'
+          onPress={() => signInWithEmail()}
+          className='bg-[#FA330C] mt-4 px-3 py-2 rounded-xl'
           activeOpacity={0.8}
           disabled={loading}
         >
@@ -146,6 +134,18 @@ const LoginScreen = () => {
           </Text>
         </StyledButton>
 
+        {/* Alternate login options */}
+        <Text
+          className='text-white font-bold mt-4 tracking-regular'
+          style={{ fontFamily: 'Inter', fontSize: 14 }}
+        >
+          Or Continue With
+        </Text>
+
+        <View className='flex-col gap-2 align-center justify-center mt-2'>
+          <GoogleAuthBtn />
+        </View>
+
         <CenteredView>
           <TouchableOpacity
             onPress={() => {
@@ -153,7 +153,7 @@ const LoginScreen = () => {
             }}
           >
             <Text
-              className='font-medium underline mt-4 text-center'
+              className='font-medium mt-4 text-center'
               style={{
                 fontFamily: 'Inter',
                 fontSize: 14,
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 5, // for Android shadow
-    height: '10em',
+    height: 50,
   },
 });
 

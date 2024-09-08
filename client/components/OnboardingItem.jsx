@@ -1,22 +1,22 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  useWindowDimensions,
-  TouchableOpacity,
-  Animated,
-  ImageBackground,
-} from 'react-native';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useFonts } from 'expo-font';
-import { Video } from 'expo-av';
-import * as Icon from 'react-native-feather';
-import { useNavigation } from '@react-navigation/native';
-import { useFocusEffect } from '@react-navigation/native';
-import Paginator from '../components/Paginator';
-import { styled } from 'nativewind';
 import onboardingSlides from '@/constants/onboardingSlides';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { Video } from 'expo-av';
+import { useFonts } from 'expo-font';
+import { styled } from 'nativewind';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  ActivityIndicator,
+  Animated,
+  Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+} from 'react-native';
+import * as Icon from 'react-native-feather';
+import Paginator from '../components/Paginator';
 
 const StyledButton = styled(TouchableOpacity);
 

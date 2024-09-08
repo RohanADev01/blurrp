@@ -1,8 +1,8 @@
-import { View, StyleSheet, FlatList, Animated } from 'react-native';
 import React, { useRef, useState } from 'react';
+import { Animated, FlatList, StyleSheet, View } from 'react-native';
 
-import OnboardingSlides from '../../constants/onboardingSlides';
 import OnboardingItem from '../../components/OnboardingItem';
+import OnboardingSlides from '../../constants/onboardingSlides';
 
 const OnboardingScreen = () => {
   const [currentIndex, setCurrentIndex] = useState(0);

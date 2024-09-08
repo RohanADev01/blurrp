@@ -75,7 +75,7 @@ const SignupProfileTypeScreen = () => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.box}
-              onPress={() => navigation.navigate('ChefHomeScreen')}
+              onPress={() => navigation.navigate('ChefHome')}
             >
               <Image
                 source={require('../../assets/images/MascotLogoCropped1.png')}

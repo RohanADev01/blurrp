@@ -21,7 +21,7 @@ export default function () {
         try {
           await GoogleSignin.hasPlayServices();
           const userInfo = await GoogleSignin.signIn();
-          console.log(JSON.stringify(userInfo, null, 2));
+          console.log('User, Null Info Auth.js:', JSON.stringify(userInfo, null, 2));
 
           if (userInfo.idToken) {
             const { data, error } = await supabase.auth.signInWithIdToken({
